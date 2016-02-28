@@ -95,15 +95,19 @@
 %\rhead[\kopfHTL]% li innen
 %      {\kopfbild}% re aussen
 
-\newcommand{\kapitelautor}{}
+\def \kapitelautor {}
 
 % \<left or right page><head or foot>[left side]{right side}
 \lhead[\kopfbild]{\kopfkapl}
 \rhead[\kopfkapr]{\kopfbild}
 \chead{}
 
-\lfoot[\kopfseitenummer]{Author: \kapitelautor}
-\rfoot[Author: \kapitelautor]{\kopfseitenummer}
+\lfoot%
+[\kopfseitenummer]%
+{\ifx \kapitelautor \empty {} \else Author: \kapitelautor \fi}
+\rfoot%
+[\ifx \kapitelautor \empty {} \else Author: \kapitelautor \fi]%
+{\kopfseitenummer}
 \cfoot[]{}
 
 % Anfang Titelseite
@@ -240,7 +244,7 @@ Reihenfolge des Nachnamens)
 \thispagestyle{fancy}
 
 \chapter{Allgemeines}
-\renewcommand{\kapitelautor}{Susi Sorglos}
+\def \kapitelautor {Susi Sorglos}
 \input{chapters/allgemeines.tex}
 
 \chapter{Planung}
@@ -256,7 +260,7 @@ Reihenfolge des Nachnamens)
 \chapter{Evaluierung}
 
 \chapter{The Future...}
-\renewcommand{\kapitelautor}{Erik Ritschl}
+\def \kapitelautor {Erik Ritschl}
 \input{chapters/outlook.tex}
 
 \appendix
