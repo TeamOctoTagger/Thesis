@@ -18,10 +18,39 @@
 
 \section{Structure}
 \def \kapitelautor {Clemens Stadlbauer}
-% TODO explain code structure
-% where is the database
-% database schema
-% module tree?
+
+In our code repository there are several folders, each of which containing a
+certain category of files.
+
+\begin{itemize}
+	\item[\tfpath{doc/}] The documentation of the software, i.e. the user manual
+	\item[\tfpath{icons/}] All the different icons and the logo used throughout the
+	software
+	\item[\tfpath{db/}] Database schemas and the database setup script
+	\item[\tfpath{src/}] The actual code of the software
+\end{itemize}
+
+\subsection{db}
+In \tfpath{system.sql} is the schema of the main database. It contains the user
+settings and the location of all the galleries. Every gallery has its own
+database as described in \tfpath{gallery.sql} containing all imported files,
+all created tags and all created output folders. The connections between these
+items (for example which tags a files has) are recorded in addition,
+intermediate tables.
+
+Furthermore, the directory contains a helper script to create the initial
+system database and an empty gallery database which is copied every time a new
+gallery is created by the user.
+
+\subsection{src}
+Herein lie all the modules that make up the entirety of the functionality and
+design of OctoTagger. Each module is contained in a single file with the
+module's name and can be categorizes as either frontend or backend. All the
+frontend modules provide some part of the user interface while all the backend
+modules implement mostly all the functionality that happens in the background
+(for example the management of files).
+
+% TODO module tree?
 
 \section{Frontend}
 %\input{chapters/execution/module.tex}
