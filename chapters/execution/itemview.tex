@@ -27,5 +27,82 @@ set the size of this window the solution was found.
 
 \subsubsection{Solution} % TODO better title
 
-Every item is given a fixed size and placed inside the \tfcode{WrapSizer}
-% TODO
+\begin{listing}
+	\begin{minted}{python}
+		class ItemView(wx.ScrollenWindow):
+			def __init__(self, parent):
+				super(ItemView, self).__init__(parent, style=wx.VSCROLL)
+
+				self.mainsizer = wx.BoxSizer(wx.VERTICAL)
+				self.sizer = wx.WrapSizer(wx.HORIZONTAL)
+
+				self.mainsizer.Add(
+					self.sizer,
+					0,
+					wx.EXPAND | wx.LEFT | wx.TOP,
+					border=10,
+				)
+
+				self.SetSizer(self.mainsizer)
+
+				self.SetScrollRate(
+					THUMBNAIL_SIZE[0] / 2,
+					THUMBNAIL_SIZE[1] / 2,
+				)
+	\end{minted}
+	\caption{A stripped down version of \tfcode{ItemView}'s constructor}
+\end{listing}
+
+% FIXME overfull hbox in tfcode
+
+The \tfcode{ItemView} class extends from \tfcode{ScrolledWindow} and
+initialized to vertical scrolling (\tfcode{style=wx.VSCROLL}). Next
+two sizers are created, where \tfcode{mainsizer}'s only purpose is to add a
+border (\tfcode{wx.EXPAND | wx.LEFT | wx.TOP, border=10}) around
+\tfcode{sizer}, which is initialized as a \tfcode{WrapSizer} with horizontal
+stacking (\tfcode{wx.WrapSizer(wx.HORIZONTAL)}). Lastly the scroll-rate is set
+to roughly half of an \tfcode{Item}'s dimensions for an appropriate scrolling
+speed.
+
+\begin{listing}
+	% TODO make listing smaller
+	\begin{minted}{python}
+		class Item(wx.Panel):
+			def __init__(self, parent, name):
+				super(Item, self).__init__(parent)
+
+				self.sizer = wx.BoxSizer(wx.VERTICAL)
+				self.SetSizer(self.sizer)
+
+				self.bitmap = wx.StaticBitmap(self)
+				self.EVT_THUMBNAIL_LOAD, self.OnThumbnailLoad)
+				self.LoadThumbnail()
+
+				self.sizer.Add(self.bitmap)
+
+				self.text = wx.StaticText(
+					self,
+					label=name,
+					style=(
+						wx.ALIGN_CENTER_HORIZONTAL |
+						wx.ST_NO_AUTORESIZE |
+						wx.ST_ELLIPSIZE_END
+					),
+				)
+
+				self.text.SetMaxSize((THUMBNAIL_SIZE[0], -1))
+
+				self.sizer.Add(self.text)
+	\end{minted}
+	\caption{A stripped down version of \tfcode{Item}'s constructor}
+\end{listing}
+
+% FIXME overfull hbox in tfcode
+
+The item is a simple panel with a vertical \tfcode{BoxSizer} containing an
+image at the top and the name at the bottom. The text is horizontally centered
+(\tfcode{wx.ALIGN\_CENTER\_HORIZONTAL}) and cut off with an ellipsis if it
+doesn't fit in the provided horizontal space (\tfcode{wx.ST\_NO\_AUTORESIZE |
+wx.ST\_ELLIPSIZE\_END}).
+
+% TODO ThumbnailThread
