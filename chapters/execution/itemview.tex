@@ -1,0 +1,31 @@
+\subsection{ItemView}
+\def \kapitelautor {Clemens Stadlbauer}
+
+\subsubsection{Abstract}
+This module lays out a list of items consisting of a thumbnail and a name in a
+grid with room to grow off the bottom of the frame. The thumbnails are loaded
+in a background thread to make the interface immediately available to the user.
+
+\subsubsection{Attempts}
+The original idea was to have a \tfcode{GridSizer} and a rough size for each
+item. The number of items per row would have been calculated based on the size
+of the containing frame. The problem with this attempt is that quite many
+expensive operations and calculations would have to be done on every resize,
+potentially resulting in a degraded user experience along with a cluttered
+codebase. For this reason a simpler and more elegant solution was searched.
+
+Due to a lack of knowledge on the available \tfcode{Sizers} in wxWidgets the
+strategy was to basically try out every one and analyse it. There always were
+some problems or limitations with the used \tfcode{Sizers}, until the
+\tfcode{WrapSizer} was discovered.
+
+The only problem with this sizer is that it grows off to the right by default
+and there seemed to be no way to tell it to grow off the bottom. After trying
+to limit the available vertical space of the sizer with no success, it was
+placed inside a \tfcode{ScrolledWindow} and after figuring out how to properly
+set the size of this window the solution was found.
+
+\subsubsection{Solution} % TODO better title
+
+Every item is given a fixed size and placed inside the \tfcode{WrapSizer}
+% TODO
