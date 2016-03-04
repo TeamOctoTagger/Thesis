@@ -1,17 +1,24 @@
 \section{Theory}
-\def \kapitelautor {Christoph Führer}
+\def\kapitelautor{Christoph Führer}
 % TODO explain technical theory
 
 \section{Technologies}
-\def \kapitelautor {Christoph Führer}
+\def\kapitelautor{Christoph Führer}
 % TODO explain used technologies
 
 \section{Planning and Prototyping} % PoC
-\def \kapitelautor {Erik Ritschl}
+\def\kapitelautor{Erik Ritschl}
 
-Our work already began in the summer of 2015. Since Python was a new language to all of us, and we had little experience with GUI programming in general, particularly with wxPython, we decided this was the best time to acquaint ourselves with these topics. So we read and watched many tutorials on the Internet, until we felt comfortable about carrying out a project with these technologies.
+Our work already began in the summer of 2015. Since Python was a new language
+to all of us, and we had little experience with GUI programming in general,
+particularly with wxPython, we decided this was the best time to acquaint
+ourselves with these topics. So we read and watched many tutorials on the
+Internet, until we felt comfortable about carrying out a project with these
+technologies.
 
-A mini-prototype was also created, as a proof of concept. It had a very minimalistic graphical user interface, ran only under Linux and was capable of the following:
+A mini-prototype was also created, as a proof of concept. It had a very
+minimalistic graphical user interface, ran only under Linux and was capable of
+the following:
 
 \begin{itemize}
 	\item Read tags from a database file
@@ -20,45 +27,113 @@ A mini-prototype was also created, as a proof of concept. It had a very minimali
 	\item Create symbolic links in these folders that point to the according file
 \end{itemize}
 
-Up until this point a feature was planned, a must-requirement, that had to be dropped. The software was supposed to be able to save tags not only in the central database file, but also in the meta information of the file itself. Attempts have been made at implementing this functionality, first with EXIF, then IPTC and lastly XMP (all different kinds of meta data, where the first two only work with images and the last one with all files). But it quickly became evident during development of the prototype that there is no easy way to modify meta data with Python on all the platforms that we support (Windows, OS X and Ubuntu).
+Up until this point a feature was planned, a must-requirement, that had to be
+dropped. The software was supposed to be able to save tags not only in the
+central database file, but also in the meta information of the file itself.
+Attempts have been made at implementing this functionality, first with EXIF,
+then IPTC and lastly XMP (all different kinds of meta data, where the first two
+only work with images and the last one with all files). But it quickly became
+evident during development of the prototype that there is no easy way to modify
+meta data with Python on all the platforms that we support (Windows, OS X and
+Ubuntu).
 
-It was also tested whether symbolic links can be created with Python under Windows. It was found that it is possible, but requires administrator privileges. At that point it was thought that there is a relatively easy workaround for this issue, but it later turned out that this was not the case. You can read more about this in the "Challanges" section. % TODO: link
+It was also tested whether symbolic links can be created with Python under
+Windows. It was found that it is possible, but requires administrator
+privileges. At that point it was thought that there is a relatively easy
+workaround for this issue, but it later turned out that this was not the case.
+You can read more about this in the ``Challenges'' section. % TODO: link
 
 \paragraph{}
-After the summer holidays had ended, the team sat together and decided upon the exact features the software should have. These were then formulated as user stories and together composed the product backlog. Soon after that, a method called \href{https://en.wikipedia.org/wiki/Planning_poker}{Planning Poker} was used in order to decide how many points each user story should be assigned. These points are used to describe the complexity of a user story, and help estimating the total time a task needs in order to be completed.
+After the summer holidays had ended, the team sat together and decided upon the
+exact features the software should have. These were then formulated as user
+stories and together composed the product backlog. Soon after that, a method
+called \href{https://en.wikipedia.org/wiki/Planning_poker}{Planning Poker} was
+used in order to decide how many points each user story should be assigned.
+These points are used to describe the complexity of a user story, and help
+estimating the total time a task needs in order to be completed.
 
 \paragraph{}
-With the completion of the product backlog, the next logical step was to develop a paper prototype. A section of the frontend was assigned to each team member, who subsequently drew sketches with a pen and paper. These were then discussed with the team, and the process was repeated until everyone was happy with the end result, the most important parts of which can be found below.
+With the completion of the product backlog, the next logical step was to
+develop a paper prototype. A section of the frontend was assigned to each team
+member, who subsequently drew sketches with a pen and paper. These were then
+discussed with the team, and the process was repeated until everyone was happy
+with the end result, the most important parts of which can be found below.
 
 % TODO: Better picture
-\begin{center}
-\includegraphics[width=\linewidth]{pp_01}
-\small{Overview of the user interface}
-\end{center}
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{pp_01}
+	\caption{Overview of the user interface}
+\end{figure}
 
-This sketch shows the general structure of the user interface, which is consistent across every stage and mode of the software. It can be divided into into the following four sections:
+This sketch shows the general structure of the user interface, which is
+consistent across every stage and mode of the software. It can be divided into
+into the following four sections:
 
-\paragraph{Menu bar} This is element can be found in almost all desktop applications. For OctoTagger, four menus were chosen, \textit{File}, \textit{Tools}, \textit{View} and \textit{Help}. The file menu can be used to switch and create galleries, import files and access the settings. With Tools, the user can start the \textit{tagging mode}, refresh thumbnails, reset or delete the current gallery, restore all files, and perform a consistency check. The view menu can be used to access the \textit{folder mode} and to choose, whether all, tagged, or untagged files should be shown. And the help menu can open about box as well as the user manual.
+\paragraph{Menu bar} This is element can be found in almost all desktop
+applications. For OctoTagger, four menus were chosen, \textit{File},
+\textit{Tools}, \textit{View} and \textit{Help}. The file menu can be used to
+switch and create galleries, import files and access the settings. With Tools,
+the user can start the \textit{tagging mode}, refresh thumbnails, reset or
+delete the current gallery, restore all files, and perform a consistency check.
+The view menu can be used to access the \textit{folder mode} and to choose,
+whether all, tagged, or untagged files should be shown. And the help menu can
+open about box as well as the user manual.
 
-\paragraph{Main panel} This is the biggest area of the software. Its content depends on the current mode. For example, in \textit{overview mode}, the default, all imported files are displayed. The items can be selected in order to perform operations on them (such as renaming, deleting, and assigning tags). Selecting items works the same way as in a standard file manager, so shortcuts such as Shift+Click and Ctrl+A can be used. % TODO: Style shortcuts
+\paragraph{Main panel} This is the biggest area of the software. Its content
+depends on the current mode. For example, in \textit{overview mode}, the
+default, all imported files are displayed. The items can be selected in order
+to perform operations on them (such as renaming, deleting, and assigning tags).
+Selecting items works the same way as in a standard file manager, so shortcuts
+such as Shift+Click and Ctrl+A can be used. % TODO: Style shortcuts
 
-\paragraph{Tag panel} The first element in the top left box is a text field. It has two different functions: \textit{assigning tags} and \textit{filtering}. When one or more files in the main panel is selected, one can enter a tag name in the text field and press enter. This tag is then assigned to the selected files, and the tag will be created if it does not already exist. When no files are selected, the text field can be used to enter \textit{expressions}, such as "school" (all files with the tag "school") or "school -htl" (all items with the tag "school" but without "htl"). This has the effect that only items that fit into the expression are displayed in the main panel.
+\paragraph{Tag panel} The first element in the top left box is a text field. It
+has two different functions: \textit{assigning tags} and \textit{filtering}.
+When one or more files in the main panel is selected, one can enter a tag name
+in the text field and press enter. This tag is then assigned to the selected
+files, and the tag will be created if it does not already exist. When no files
+are selected, the text field can be used to enter \textit{expressions}, such as
+``school'' (all files with the tag ``school'') or ``school -htl'' (all items
+with the tag ``school'' but without ``htl''). This has the effect that only
+items that fit into the expression are displayed in the main panel.
 
-Below the text field is a list of every tag, with a checkbox and the tag name. When a file is selected, the corresponding tags are checked. They can be manually checked and unchecked, in order to add or remove tags. When multiple files are selected, shared tags are checked, and tags that are assigned to some but not all of the items are put into the "third state", indicating partial applicability. This state is usually illustrated as a square, but it can depend on the platform. In the case that no files are currently selected, checking a tag causes the tag name to be entered into the text field, which leads to the filtering described above. This also works with multiple tags.
+Below the text field is a list of every tag, with a checkbox and the tag name.
+When a file is selected, the corresponding tags are checked. They can be
+manually checked and unchecked, in order to add or remove tags. When multiple
+files are selected, shared tags are checked, and tags that are assigned to some
+but not all of the items are put into the ``third state'', indicating partial
+applicability. This state is usually illustrated as a square, but it can depend
+on the platform. In the case that no files are currently selected, checking a
+tag causes the tag name to be entered into the text field, which leads to the
+filtering described above. This also works with multiple tags.
 
-\paragraph{Context panel} The last section is located in the bottom left box. The context panel includes several buttons for performing different actions, depending on the context. It can, for example, delete the currently selected files, or open them in an image viewer. The idea here is that it shows all the actions that are available in the context menu (which appears with right clicking the main panel), but makes them much more visible. This way, users are much more likely to find and use them.
+\paragraph{Context panel} The last section is located in the bottom left box.
+The context panel includes several buttons for performing different actions,
+depending on the context. It can, for example, delete the currently selected
+files, or open them in an image viewer. The idea here is that it shows all the
+actions that are available in the context menu (which appears with right
+clicking the main panel), but makes them much more visible. This way, users are
+much more likely to find and use them.
 
 \paragraph{}
-Another feature worth mentioning here is the \textit{tagging view} (or \textit{tagging mode}), pictured below:
+Another feature worth mentioning here is the \textit{tagging view} (or
+\textit{tagging mode}), pictured below:
 
 % TODO: Better picture
-\begin{center}
+\begin{figure}
+	\centering
 	\includegraphics[width=\linewidth]{pp_02}
-	\small{Tagging view}
-\end{center}
+	\caption{Tagging view}
+\end{figure}
 
 % TODO: Terrible description
-This mode can be started by double clicking an item in overview mode, or selecting the appropriate option in the tools menu. In it, a single item is visible at a time. When it is an image file, the image is displayed as big as possible, and if not, a generic icon is used instead. This mode can be used to go through a larger collection of photos, look at the content of each one, and decide which tags apply. The tag and context panes behave the same way as when a single file in the overview mode is selected.
+This mode can be started by double clicking an item in overview mode, or
+selecting the appropriate option in the tools menu. In it, a single item is
+visible at a time. When it is an image file, the image is displayed as big as
+possible, and if not, a generic icon is used instead. This mode can be used to
+go through a larger collection of photos, look at the content of each one, and
+decide which tags apply. The tag and context panes behave the same way as when
+a single file in the overview mode is selected.
 
 % TODO: embed sketches, explain frontend
 
@@ -71,15 +146,14 @@ This mode can be started by double clicking an item in overview mode, or selecti
 % code snippets
 
 \section{Structure}
-\def \kapitelautor {Clemens Stadlbauer} 
+\def\kapitelautor{Clemens Stadlbauer}
 
 In our code repository there are several folders, each of which contains a
 certain category of files.
 
 \begin{itemize}
-	\item[\tfpath{doc/}] The documentation of the software, i.e. the user manual
-	\item[\tfpath{icons/}] All the different icons and the logo used throughout the
-	software
+	\item[\tfpath{doc/}] The documentation of the software, i.e.~the user manual
+	\item[\tfpath{icons/}] All the different icons and the logo used throughout the software
 	\item[\tfpath{db/}] Database schemas and the database setup script
 	\item[\tfpath{src/}] The actual code of the software
 \end{itemize}
@@ -92,9 +166,9 @@ all created tags and all created output folders. The connections between these
 items (for example which tags a file has) are recorded in also,
 in intermediate tables.
 
-Furthermore, the directory contains a helper script (\tfpath{setup.py}) to create the initial
-system database and an empty gallery database which is copied every time a new
-gallery is created by the user.
+Furthermore, the directory contains a helper script (\tfpath{setup.py}) to
+create the initial system database and an empty gallery database which is
+copied every time a new gallery is created by the user.
 
 \subsection{src}
 Herein lie all the modules that make up the entirety of the functionality and
@@ -124,5 +198,5 @@ which is used to start the program.
 % TODO like module
 
 \section{Quality Management}
-\def \kapitelautor {Julian Lorenz}
+\def\kapitelautor{Julian Lorenz}
 % TODO
