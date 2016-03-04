@@ -27,7 +27,7 @@ set the size of this window the solution was found.
 
 \subsubsection{Solution} % TODO better title
 
-\begin{listing}
+\begin{listing}[p]
 	\begin{minted}{python}
 		class ItemView(wx.ScrollenWindow):
 			def __init__(self, parent):
@@ -51,6 +51,7 @@ set the size of this window the solution was found.
 				)
 	\end{minted}
 	\caption{A stripped down version of \tfcode{ItemView}'s constructor}
+	\label{lst:mod:itemview}
 \end{listing}
 
 % FIXME overfull hbox in tfcode
@@ -64,7 +65,7 @@ stacking (\tfcode{wx.WrapSizer(wx.HORIZONTAL)}). Lastly the scroll-rate is set
 to roughly half of an \tfcode{Item}'s dimensions for an appropriate scrolling
 speed.
 
-\begin{listing}
+\begin{listing}[p]
 	% TODO make listing smaller
 	\begin{minted}{python}
 		class Item(wx.Panel):
@@ -95,6 +96,7 @@ speed.
 				self.sizer.Add(self.text)
 	\end{minted}
 	\caption{A stripped down version of \tfcode{Item}'s constructor}
+	\label{lst:mod:itemview:item}
 \end{listing}
 
 % FIXME overfull hbox in tfcode

@@ -17,7 +17,7 @@
 \usepackage{ulem}
 \usepackage{minted}
 
-\setminted{autogobble,linenos,stepnumber=3,tabsize=4}
+\setminted{autogobble,linenos,tabsize=4}
 
 \usepackage[
 	unicode=true,
@@ -58,7 +58,9 @@
 \usepackage{mathpazo}
 
 \frenchspacing
-\graphicspath{ {./images/} }
+\graphicspath{%
+	{./images/}
+}
 
 \begin{document}
 %%%%%%
@@ -87,7 +89,7 @@
 %\rhead[\kopfHTL]% li innen
 %      {\kopfbild}% re aussen
 
-\def \kapitelautor {}
+\def\kapitelautor{}
 
 % \<left or right page><head or foot>[left side]{right side}
 \lhead[\kopfbild]{\kopfkapl}
@@ -229,6 +231,8 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 \listoftables
 \cleardoublepage{}
 \listoffigures
+\cleardoublepage{}
+\listoflistings
 
 \cleardoublepage{}
 
