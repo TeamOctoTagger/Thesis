@@ -158,19 +158,135 @@ certain category of files.
 	\item[\tfpath{src/}] The actual code of the software
 \end{itemize}
 
-\subsection{db}
-\tfpath{system.sql} is the schema of the main database. It contains the user
-settings and the location of all galleries. Every gallery has its own
-database as described in \tfpath{gallery.sql} containing all imported files,
-all created tags and all created output folders. The connections between these
-items (for example which tags a file has) are recorded in also,
-in intermediate tables.
+\subsection{database}
+
+% TODO ER-Model
+
+\tfpath{system.sql} contains the schema of the main database. It contains the
+user settings (see~\cref{lst:db:system:settings}) and the location of all
+galleries (see~\cref{lst:db:system:gallery}). When the program is started for
+the first time these tables are filled with default values from
+\cref{lst:db:system:default}.
+
+Every gallery has its own database as described in \tfpath{gallery.sql}
+containing all imported files (see~\cref{lst:db:gallery:file}), all created
+tags (see~\cref{lst:db:gallery:tag}) and all created output folders
+(see~\cref{lst:db:gallery:folder}). The connections between these items (for
+example which tags a file has) are recorded in intermediate tables
+(see~\cref{lst:db:gallery:relations}).
 
 Furthermore, the directory contains a helper script (\tfpath{setup.py}) to
 create the initial system database and an empty gallery database which is
 copied every time a new gallery is created by the user.
 
-\subsection{src}
+\begin{listing}[p]
+	\begin{minted}{sql}
+		CREATE TABLE settings (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			default_gallery_path TEXT,
+			default_folder_path TEXT,
+			use_softlink BOOLEAN,
+			import_copy BOOLEAN,
+			use_dark_theme BOOLEAN,
+			current_db INTEGER REFERENCES gallery(pk_id)
+		);
+	\end{minted}
+	\caption{System database settings schema}
+	\label{lst:db:system:settings}
+\end{listing}
+
+\begin{listing}[p]
+	\begin{minted}{sql}
+		CREATE TABLE gallery (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT,
+			location TEXT
+		);
+	\end{minted}
+	\caption{System database gallery schema}
+	\label{lst:db:system:gallery}
+\end{listing}
+
+\begin{listing}[p]
+	\begin{minted}{sql}
+		INSERT INTO gallery(name, location) VALUES ('default', '.');
+		INSERT INTO settings(
+			default_gallery_path,
+			default_folder_path,
+			use_softlink,
+			import_copy,
+			use_dark_theme,
+			current_db
+		) VALUES ('.', '', 1, 1, 1, 1);
+	\end{minted}
+	\caption{System database default settings}
+	\label{lst:db:system:default}
+\end{listing}
+
+\begin{listing}[p]
+	\begin{minted}{sql}
+		CREATE TABLE file (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			uuid TEXT UNIQUE ON CONFLICT ABORT,
+			file_name TEXT
+		);
+	\end{minted}
+	\caption{Gallery database file schema}
+	\label{lst:db:gallery:file}
+\end{listing}
+
+\begin{listing}[p]
+	\begin{minted}{sql}
+		CREATE TABLE tag (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name text UNIQUE ON CONFLICT ABORT,
+			is_numeric BOOLEAN
+		);
+	\end{minted}
+	\caption{Gallery database tag schema}
+	\label{lst:db:gallery:tag}
+\end{listing}
+
+\begin{listing}[p]
+	\begin{minted}{sql}
+		CREATE TABLE folder (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT,
+			location TEXT,
+			expression TEXT,
+			use_softlink BOOLEAN
+		);
+
+		CREATE TABLE gallery_folder (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT,
+			location TEXT,
+			add_new_tag BOOLEAN,
+			use_softlink BOOLEAN
+		);
+	\end{minted}
+	\caption{Gallery database output folder schemas}
+	\label{lst:db:gallery:folder}
+\end{listing}
+
+\begin{listing}[p]
+	\begin{minted}{sql}
+		CREATE TABLE file_has_tag (
+			pk_fk_file_id INTEGER REFERENCES file(pk_id),
+			pk_fk_tag_id INTEGER REFERENCES tags(pk_id),
+			amount INTEGER
+		);
+
+		CREATE TABLE gallery_folder_has_tag (
+			pk_fk_gallery_folder_id INTEGER REFERENCES gallery_folder(pk_id),
+			pk_fk_tag_id INTEGER REFERENCES tag(pk_id)
+		);
+	\end{minted}
+	\caption{Gallery database relations}
+	\label{lst:db:gallery:relations}
+\end{listing}
+
+\subsection{source}
 Herein lie all the modules that make up the entirety of the functionality and
 design of OctoTagger. Each module is contained in a single file with the
 module's name and can be categorizes as either frontend or backend. All the
