@@ -1,5 +1,5 @@
 \subsection{ItemView}
-\def \kapitelautor {Clemens Stadlbauer}
+\def\kapitelautor{Clemens Stadlbauer}
 
 \subsubsection{Abstract}
 This module lays out a list of items consisting of a thumbnail and a name in a
@@ -26,6 +26,44 @@ placed inside a \tfcode{ScrolledWindow} and after figuring out how to properly
 set the size of this window the solution was found.
 
 \subsubsection{Solution} % TODO better title
+
+\begin{sloppypar}
+The \tfcode{ItemView} class extends from \tfcode{ScrolledWindow} and is
+initialized to vertical scrolling (\tfcode{style=wx.VSCROLL}). Next
+two sizers are created, where \tfcode{mainsizer}'s only purpose is to add a
+border (\tfcode{wx.EXPAND | wx.LEFT | wx.TOP, border=10}) around
+\tfcode{sizer}, which is initialized as a \tfcode{WrapSizer} with horizontal
+stacking (\tfcode{wx.WrapSizer(wx.HORIZONTAL)}). Lastly the scroll-rate is set
+to roughly half of an \tfcode{Item}'s dimensions for an appropriate scrolling
+speed. \Cref{lst:mod:itemview} shows the complete constructor.
+\end{sloppypar}
+
+\begin{sloppypar}
+The item is a simple panel with a vertical \tfcode{BoxSizer} containing an
+image at the top and the name at the bottom. The text is horizontally centered
+(\tfcode{wx.ALIGN_CENTER_HORIZONTAL}) and cut off with an ellipsis if it
+doesn't fit in the provided horizontal space (\tfcode{wx.ST_NO_AUTORESIZE |
+wx.ST_ELLIPSIZE_END}). \Cref{lst:mod:itemview:item} shows the complete
+constructor.
+\end{sloppypar}
+
+The number of items displayed during regular use of the program can reach such
+a high amount that the loading of the thumbnails can take multiple seconds
+degrading the user experience in the process. To resolve this issue all
+thumbnails are loaded in the background via the \tfcode{ThumbnailThread} class.
+As shown in \cref{lst:mod:itemview:thumbnail} the thread is initialized with
+the calling window (\tfcode{notify_window}), the path to the actual image
+(\tfcode{path}) and the path to the generated thumbnail or \tfcode{None} if it
+doesn't exist yet (\tfcode{thumb}).
+
+Once the thread is started it proceeds to generate the thumbnail, if needed,
+with thumbnail module (TODO cref). Once it is generated the thread then creates
+an \tfcode{Image} from the thumbnail, resizes it to desired size and finally
+signals the calling window that the thumbnail has loaded.
+
+The calling window, which is always an \tfcode{Item}, takes the \tfcode{Image},
+coverts it into a \tfcode{Bitmap} and displays it. The full code, including the
+calling of the thread, is shown in \cref{lst:mod:itemview:item:thumbnail}.
 
 \begin{listing}[p]
 	\begin{minted}{python}
@@ -54,19 +92,7 @@ set the size of this window the solution was found.
 	\label{lst:mod:itemview}
 \end{listing}
 
-% FIXME overfull hbox in tfcode
-
-The \tfcode{ItemView} class extends from \tfcode{ScrolledWindow} and
-initialized to vertical scrolling (\tfcode{style=wx.VSCROLL}). Next
-two sizers are created, where \tfcode{mainsizer}'s only purpose is to add a
-border (\tfcode{wx.EXPAND | wx.LEFT | wx.TOP, border=10}) around
-\tfcode{sizer}, which is initialized as a \tfcode{WrapSizer} with horizontal
-stacking (\tfcode{wx.WrapSizer(wx.HORIZONTAL)}). Lastly the scroll-rate is set
-to roughly half of an \tfcode{Item}'s dimensions for an appropriate scrolling
-speed.
-
 \begin{listing}[p]
-	% TODO make listing smaller
 	\begin{minted}{python}
 		class Item(wx.Panel):
 			def __init__(self, parent, name):
@@ -99,12 +125,43 @@ speed.
 	\label{lst:mod:itemview:item}
 \end{listing}
 
-% FIXME overfull hbox in tfcode
+\begin{listing}[p]
+	\begin{minted}{python}
+		class _ThumbnailThread(threading.Thead):
+			def __init__(self, notify_window, path, thumb):
+				super(_ThumbnailThread, self).__init__()
+				self._notify_window = notify_window
+				self._path = path
+				self._thumb = thumb
 
-The item is a simple panel with a vertical \tfcode{BoxSizer} containing an
-image at the top and the name at the bottom. The text is horizontally centered
-(\tfcode{wx.ALIGN\_CENTER\_HORIZONTAL}) and cut off with an ellipsis if it
-doesn't fit in the provided horizontal space (\tfcode{wx.ST\_NO\_AUTORESIZE |
-wx.ST\_ELLIPSIZE\_END}).
+			def run(self):
+				if self._thumb is None:
+					self._thumb = thumbnail.get_thumbnail(self.path)
+				image = wx.Image(self._thumb)
+				image.Resize(THUMBNAIL_SIZE, (
+					(THUMBNAIL_SIZE[0] - image.GetWidth()) / 2,
+					(THUMBNAIL_SIZE[1] - image.GetHeight()) / 2,
+				))
+				wx.PostEvent(
+					self._notify_window,
+					ThumbnailLoadEvent(data=image),
+				)
+	\end{minted}
+	\caption{A stripped down version of \tfcode{ThumbnailThread}'s
+	implementation}
+	\label{lst:mod:itemview:thumbnail}
+\end{listing}
 
-% TODO ThumbnailThread
+\begin{listing}[p]
+	\begin{minted}{python}
+		def OnThumbnailLoad(self, event):
+			self.bitmap.SetBitmap(event.data.ConvertToBitmap())
+			self.thumb_thread = None
+
+		def LoadThumbnail(self):
+			self.thumb_thread = _ThumbnailThread(self, self.path, self.thumb)
+			self.thumb_thread.start()
+	\end{minted}
+	\caption{How an \tfcode{Item} handles a loaded thumbnail}
+	\label{lst:mod:itemview:item:thumbnail}
+\end{listing}
