@@ -1,0 +1,19 @@
+\subsection{Tag list}
+
+\subsubsection{Abstract}
+
+This module is responsible for the list of tags on the left side of the window. It sends an event to its parent \tfcode{octotagger.py} when a tag has been checked, it provides functions for checking and unchecking of tags, and it is able to rename or delete tags via rightclick. 
+
+\subsubsection{Attempts}
+
+It was first implemented as an extension of \tfcode{wx.CheckListBox}. It was the easiest way of doing it, since an already finished native module was used, and it mostly provided what was needed: A scrollable list of labeled checkboxes, and plenty of functions for getting and checking items. But a problem soon emerged: the checkboxes in \tfcode{wx.CheckListBox} only support two states, checked and unchecked. But the overview mode requires a third state for indicating partial occurrence of a tag in a selection of files, also called the ``undetermined'' state.
+
+It was then attempted to make a new version of \tfcode{wx.CheckListBox}, by copying and modifying its source code. This turned out to be harder than expected, and was given up on after the realization that crucial know how of wxPython's   internal structure was lacking. Therefore, a completely new class had to be written from scratch.
+
+\subsubsection{Solution}
+
+\tfcode{TagList} is an extension of \tfcode{wx.ScrolledWindow}, which is essentially a panel that receives scroll bars as soon as there is enough content to warrant them. Aside from the standard arguments, its constructor also asks for an array of tag names. Each string receives its own checkbox, this time with the according arguments to make it support three states.
+
+Most of \tfcode{TagList}'s functions are reimplementations of \tfcode{wx.CheckListBox}'s, but there are some novel additions. Rightclicks on an item spawn a context menu, which gives one the option of renaming or deleting the tag. Deletion is very straightforward: First, the appropriate backend functions for properly removing a tag are called, and then an update event is sent to \tfcode{octotagger.py}, which causes a recreation of the \tfcode{TagList} object.
+
+Renaming is a little more complex, and is divided up into two functions. \tfcode{RenameTag} hides the relevant item, replacing it with a text field which contains the tag name. A new name can now be entered. The edit is confirmed with the press of \tfcode{Enter}, upon which the function \tfcode{OnNewName} is called. Here, a check for the validity of the new name is made. An error message is displayed when the name contains anything other than letters, numbers and underscores, or when it is already in use. When the input is OK, the backend function for renaming tags in the \tfcode{output} module is called, after which an update event sent, and the tag list gets redrawn.

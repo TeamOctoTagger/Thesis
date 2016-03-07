@@ -1,0 +1,31 @@
+\subsection{octotagger}
+\def \kapitelautor {Erik Ritschl}
+
+This is the main module, the file you execute when you want to start OctoTagger. It consists of the class \tfcode{MainWindow}, which extends \tfcode{wx.Frame}, which is an application window in wxPython. The code that starts the main loop is located at the very end of the file. %TODO: include link
+With almost 2000 lines of code, this is the largest source file in the whole project. The reason for this is that it includes many functions that could not be easily outsourced as a module. Given below is a general overview of the module's structure.
+
+\subsubsection{Constructor}
+
+The constructor initializes the basic user interface and sets some variables used throughout the application, such as the color theme and the current mode. The mode can be one of four strings: \tfcode{overview} (the default), \tfcode{tagging}, \tfcode{import}, and \tfcode{folder}.
+
+The basic elements are created here. They consist of the menu bar, panels, sizers (which determine where each element is located and how it reacts to resizing), and the text field. %TODO mention autocompletion
+
+\tfcode{Open gallery} is a submenu of the file menu, under which the user can select one of the existing galleries to open. Since they can change during runtime, a function had to be written for updating its contents.
+
+The constructor also creates an \textit{accelerator table}. This is a feature of wxPython, with which one can specify an array of key code and function pairs, each of which then serves as an \textit{accelerator}, or keyboard shortcut. 
+
+\subsubsection{start\_overview()}
+
+This is the last function called in the constructor. It sets the current mode to the default \tfcode{overview}, and gracefully ends the previously active mode. For example, if it is called during import mode, it first asks the user if he or she really wants to cancel the import.
+
+In order to start the overview mode, a query for all file ID's is made via the gallery's database. These are then given the \tfcode{ItemView}, which proceeds with loading the every item. This is where the applications initialization ends, and control is passed over to the user.
+
+\begin{listing}[p]
+	\begin{minted}{python}
+		app = wx.App(False)
+		frame = MainWindow(None, "OctoTagger")
+		app.MainLoop()
+	\end{minted}
+	\caption{Starting the applications main loop}
+	\label{lst:mod:mainloop}
+\end{listing}

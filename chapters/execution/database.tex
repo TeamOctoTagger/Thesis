@@ -1,0 +1,3 @@
+\subsection{database}
+
+This module provides several functions for dealing with the various database files in OctoTagger. It is responsible for creating, switching, resetting (removing all tags) and deleting galleries. Probably the most used function is \tfcode{get\_current\_gallery}. When calling it, one can specify a certain property, such as ``name'', ``location'' or ``connection'', and it is returned. This method is used every time the contents of the currently active gallery database file need to be read or modified at any point in the software.
