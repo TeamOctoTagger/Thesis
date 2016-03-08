@@ -1,0 +1,45 @@
+\subsection{thumbnail}
+\def\kapitelautor{Clemens Stadlbauer}
+
+\subsubsection{Abstract}
+
+This module keeps a register that maps mime-types to static images or file
+handlers that generate the thumbnails. By default, only jpeg, png and gif
+images are handled with a generic handler utilizing \tfcode{PIL}\index{PIL} to
+load, size, scale and finally save the generated thumbnail as a png image. If
+an image has an unregistered mime-type a generic thumbnail will be used.
+
+\subsubsection{Attempts}
+
+At first we used the original images but it quickly became apparent that this
+wasn't the final solution as the interface would hang for multiple seconds on
+large images. It was then decided to generate thumbnails of a fixed size and
+save them on disk to improve loading times.
+
+\subsubsection{Solution} % TODO better title
+
+The modules has two functions, one for registering new handlers and another for
+generating thumbnails.
+
+The first, called \tfcode{register}, takes a mime-type and a handler. It first
+checks whether a handler for the specified mime-type already exists, then if
+the provided handler is either a valid path or a function. If both checks pass
+it registers the new handler.
+
+To actually generate the thumbnail the modules provides the
+\tfcode{get_thumbnail} method which takes either a file id from the database or
+a path. It then proceeds to check if a thumbnail has previously been generated.
+If none was found it tries to generate a new one by first finding the
+appropriate handler from the file's mime-type. If the handler is a static image
+its path is returned, if it is a function, however, it is invoked with the
+file's path and the desired thumbnail's path. The newly generated thumbnail is
+then returned.
+
+In addition three default handlers are registered for the \tfcode{image/jpeg},
+\tfcode{image/png} and \tfcode{image/gif} mime-types as these are the most
+common image types. The generic handler uses the \emph{Python Image
+Library}\index{PIL} to load the original image, resize it to fit the desired
+size, add padding to exactly fit this size and finally save it as a png file.
+While jpeg would provide a smaller file size, it does not support transparency.
+
+To see how and when this modules is used see \cref{subsec:mod:itemview}.
