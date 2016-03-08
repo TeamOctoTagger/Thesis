@@ -162,25 +162,49 @@ certain category of files.
 
 % TODO ER-Model
 
-\tfpath{system.sql} contains the schema of the main database. It contains the
-user settings (see~\cref{lst:db:system:settings}) and the location of all
-galleries (see~\cref{lst:db:system:gallery}). When the program is started for
-the first time these tables are filled with default values from
-\cref{lst:db:system:default}.
+\tfpath{system.sql} contains the schema of the main database which in turn
+contains the user settings and the location of all galleries.
+\Cref{lst:db:system} shows the entire schema. When the program is started for
+the first time these tables are filled with the following default values.
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{|lr|}
+		\multicolumn{2}{c}{gallery} \\
+		\hline
+		\tfcode{name} & \mintinline{sql}{'default'} \\
+		\tfcode{location} & \mintinline{sql}{'.'} \\
+		\hline
+		\multicolumn{2}{c}{settings} \\
+		\hline
+		\tfcode{default_gallery_path} & \mintinline{sql}{'.'} \\
+		\tfcode{default_folder_path} & \mintinline{sql}{''} \\
+		\tfcode{use_softlink} & \mintinline{sql}{TRUE} \\
+		\tfcode{import_copy} & \mintinline{sql}{TRUE} \\
+		\tfcode{use_dark_theme} & \mintinline{sql}{TRUE} \\
+		\tfcode{current_db} & \mintinline{sql}{TRUE} \\
+		\hline
+	\end{tabular}
+	\caption{Default settings}
+\end{table}
 
 Every gallery has its own database as described in \tfpath{gallery.sql}
-containing all imported files (see~\cref{lst:db:gallery:file}), all created
-tags (see~\cref{lst:db:gallery:tag}) and all created output folders
-(see~\cref{lst:db:gallery:folder}). The connections between these items (for
-example which tags a file has) are recorded in intermediate tables
-(see~\cref{lst:db:gallery:relations}).
+containing all imported files, all created tags and all created output folders.
+The connections between these items (for example which tags a file has) are
+recorded in intermediate tables. \Cref{lst:db:gallery} shows the entire schema.
 
-Furthermore, the directory contains a helper script (\tfpath{setup.py}) to
+Furthermore, the directory contains the helper script \tfpath{setup.py} to
 create the initial system database and an empty gallery database which is
 copied every time a new gallery is created by the user.
 
 \begin{listing}[p]
 	\begin{minted}{sql}
+		CREATE TABLE gallery (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT,
+			location TEXT
+		);
+
 		CREATE TABLE settings (
 			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
 			default_gallery_path TEXT,
@@ -191,48 +215,8 @@ copied every time a new gallery is created by the user.
 			current_db INTEGER REFERENCES gallery(pk_id)
 		);
 	\end{minted}
-	\caption{System database settings schema}
-	\label{lst:db:system:settings}
-\end{listing}
-
-\begin{listing}[p]
-	\begin{minted}{sql}
-		CREATE TABLE gallery (
-			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
-			name TEXT,
-			location TEXT
-		);
-	\end{minted}
-	\caption{System database gallery schema}
-	\label{lst:db:system:gallery}
-\end{listing}
-
-\begin{listing}[p]
-	\begin{minted}{sql}
-		INSERT INTO gallery(name, location) VALUES ('default', '.');
-		INSERT INTO settings(
-			default_gallery_path,
-			default_folder_path,
-			use_softlink,
-			import_copy,
-			use_dark_theme,
-			current_db
-		) VALUES ('.', '', 1, 1, 1, 1);
-	\end{minted}
-	\caption{System database default settings}
-	\label{lst:db:system:default}
-\end{listing}
-
-\begin{listing}[p]
-	\begin{minted}{sql}
-		CREATE TABLE file (
-			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
-			uuid TEXT UNIQUE ON CONFLICT ABORT,
-			file_name TEXT
-		);
-	\end{minted}
-	\caption{Gallery database file schema}
-	\label{lst:db:gallery:file}
+	\caption{System database schema}
+	\label{lst:db:system}
 \end{listing}
 
 \begin{listing}[p]
@@ -242,13 +226,7 @@ copied every time a new gallery is created by the user.
 			name text UNIQUE ON CONFLICT ABORT,
 			is_numeric BOOLEAN
 		);
-	\end{minted}
-	\caption{Gallery database tag schema}
-	\label{lst:db:gallery:tag}
-\end{listing}
 
-\begin{listing}[p]
-	\begin{minted}{sql}
 		CREATE TABLE folder (
 			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
 			name TEXT,
@@ -264,26 +242,26 @@ copied every time a new gallery is created by the user.
 			add_new_tag BOOLEAN,
 			use_softlink BOOLEAN
 		);
-	\end{minted}
-	\caption{Gallery database output folder schemas}
-	\label{lst:db:gallery:folder}
-\end{listing}
-
-\begin{listing}[p]
-	\begin{minted}{sql}
-		CREATE TABLE file_has_tag (
-			pk_fk_file_id INTEGER REFERENCES file(pk_id),
-			pk_fk_tag_id INTEGER REFERENCES tags(pk_id),
-			amount INTEGER
-		);
 
 		CREATE TABLE gallery_folder_has_tag (
 			pk_fk_gallery_folder_id INTEGER REFERENCES gallery_folder(pk_id),
 			pk_fk_tag_id INTEGER REFERENCES tag(pk_id)
 		);
+
+		CREATE TABLE file (
+			pk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+			uuid TEXT UNIQUE ON CONFLICT ABORT,
+			file_name TEXT
+		);
+
+		CREATE TABLE file_has_tag (
+			pk_fk_file_id INTEGER REFERENCES file(pk_id),
+			pk_fk_tag_id INTEGER REFERENCES tags(pk_id),
+			amount INTEGER
+		);
 	\end{minted}
-	\caption{Gallery database relations}
-	\label{lst:db:gallery:relations}
+	\caption{Gallery database schema}
+	\label{lst:db:gallery}
 \end{listing}
 
 \subsection{source}
