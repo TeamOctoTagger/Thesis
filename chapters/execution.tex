@@ -11,10 +11,10 @@
 
 Our work already began in the summer of 2015. Since Python was a new language
 to all of us, and we had little experience with GUI programming in general,
-particularly with wxPython, we decided this was the best time to acquaint
-ourselves with these topics. So we read and watched many tutorials on the
-Internet, until we felt comfortable about carrying out a project with these
-technologies.
+particularly with wxPython\index{wxPython}, we decided this was the best time
+to acquaint ourselves with these topics. So we read and watched many tutorials
+on the Internet, until we felt comfortable about carrying out a project with
+these technologies.
 
 A mini-prototype was also created, as a proof of concept. It had a very
 minimalistic graphical user interface, ran only under Linux and was capable of
@@ -43,7 +43,6 @@ privileges. At that point it was thought that there is a relatively easy
 workaround for this issue, but it later turned out that this was not the case.
 You can read more about this in the ``Challenges'' section. % TODO: link
 
-\paragraph{}
 After the summer holidays had ended, the team sat together and decided upon the
 exact features the software should have. These were then formulated as user
 stories and together composed the product backlog. Soon after that, a method
@@ -52,7 +51,6 @@ used in order to decide how many points each user story should be assigned.
 These points are used to describe the complexity of a user story, and help
 estimating the total time a task needs in order to be completed.
 
-\paragraph{}
 With the completion of the product backlog, the next logical step was to
 develop a paper prototype. A section of the frontend was assigned to each team
 member, who subsequently drew sketches with a pen and paper. These were then
@@ -71,28 +69,28 @@ consistent across every stage and mode of the software. It can be divided into
 into the following four sections:
 
 \paragraph{Menu bar} This is element can be found in almost all desktop
-applications. For OctoTagger, four menus were chosen, \textit{File},
-\textit{Tools}, \textit{View} and \textit{Help}. The file menu can be used to
-switch and create galleries, import files and access the settings. With Tools,
-the user can start the \textit{tagging mode}, refresh thumbnails, reset or
-delete the current gallery, restore all files, and perform a consistency check.
-The view menu can be used to access the \textit{folder mode} and to choose,
-whether all, tagged, or untagged files should be shown. And the help menu can
-open about box as well as the user manual.
+applications. For OctoTagger, four menus were chosen, \emph{File},
+\emph{Tools}, \emph{View} and \emph{Help}. The file menu can be used to switch
+and create galleries, import files and access the settings. With Tools, the
+user can start the \emph{tagging mode}, refresh thumbnails, reset or delete the
+current gallery, restore all files, and perform a consistency check.  The view
+menu can be used to access the \emph{folder mode} and to choose, whether all,
+tagged, or untagged files should be shown. And the help menu can open about box
+as well as the user manual.
 
 \paragraph{Main panel} This is the biggest area of the software. Its content
-depends on the current mode. For example, in \textit{overview mode}, the
-default, all imported files are displayed. The items can be selected in order
-to perform operations on them (such as renaming, deleting, and assigning tags).
-Selecting items works the same way as in a standard file manager, so shortcuts
+depends on the current mode. For example, in \emph{overview mode}, the default,
+all imported files are displayed. The items can be selected in order to perform
+operations on them (such as renaming, deleting, and assigning tags). Selecting
+items works the same way as in a standard file manager, so shortcuts
 such as Shift+Click and Ctrl+A can be used. % TODO: Style shortcuts
 
 \paragraph{Tag panel} The first element in the top left box is a text field. It
-has two different functions: \textit{assigning tags} and \textit{filtering}.
-When one or more files in the main panel is selected, one can enter a tag name
-in the text field and press enter. This tag is then assigned to the selected
+has two different functions: \emph{assigning tags} and \emph{filtering}.  When
+one or more files in the main panel is selected, one can enter a tag name in
+the text field and press enter. This tag is then assigned to the selected
 files, and the tag will be created if it does not already exist. When no files
-are selected, the text field can be used to enter \textit{expressions}, such as
+are selected, the text field can be used to enter \emph{expressions}, such as
 ``school'' (all files with the tag ``school'') or ``school -htl'' (all items
 with the tag ``school'' but without ``htl''). This has the effect that only
 items that fit into the expression are displayed in the main panel.
@@ -116,11 +114,11 @@ clicking the main panel), but makes them much more visible. This way, users are
 much more likely to find and use them.
 
 \paragraph{}
-Another feature worth mentioning here is the \textit{tagging view} (or
-\textit{tagging mode}), pictured below:
+Another feature worth mentioning here is the \emph{tagging view} (or
+\emph{tagging mode}), pictured below: % TODO better reference to picture
 
 % TODO: Better picture
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth]{pp_02}
 	\caption{Tagging view}
