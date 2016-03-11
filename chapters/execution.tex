@@ -4,7 +4,39 @@
 
 \section{Technologies}
 \def\kapitelautor{Christoph Führer}
-% TODO explain used technologies
+\subsubsection{Python}
+As for the programming language we chose Python, Python 2.7 to be precise. We made that choice even though we did not learn it in school or any other extracurricular activity, so you may ask yourself: ``Why did you use it then? And why Python and not any other programming language?'' Well, one of our main goals of this project was to learn something new and since we already learned Java for three years in school we were able to easily cross that out. The other two languages which caught our interest were C++ and Python. Since we were not able to decide this without further investigation we had to research immensely and here are the key points for and against the two different languages we came up with to help us with the final decision:
+
+
+\begin{itemize}
+	\item Python is at a higher level and has a cleaner syntax than C++ which will probably lead to better code quality, less traps during development and debugging will be easier.
+	\item Both Python and C++ are object oriented. C++ however introduces many new concepts, like pointers for example, which can be difficult to understand and are hard to master. Everything in Python seems pretty familiar however and we did not find anything that could hinder our coding process drastically.
+	\item Python is interpreted and C++ is compiled, which means that C++ will have better performance and will also be easier to deploy since no runtime is needed on the client PC. The performance loss with Python can be ignored due to the fact that we are not doing any real-time computing and that it is just a quite small drop. For deployment there exist multiple solutions which are also easy to implement and depict no severe problems.
+	\item Both Python and C++ have great IDEs for every platform, and the GUI-frameworks Qt and wxWidgets both have bindings for Python. C++ development on Windows is a bit tricky to set up, but only has to be done once.
+\end{itemize}
+
+After a long discussion we made the decision to use Python because there are just too many disadvantages when using C++ in contrast to the small amount of advantages it delivers compared to Python. The Syntax of Python also seemed a lot more pleasant to us than it did when looking at C++.
+
+So the last step was to check if Python was not suitable for our type of application, therefore we had to do another round of research. After doing so, we came up with that it is hard to think of kinds of general applications where Python would be unsuitable, but there are several types where, like just about many other higher-level languages similar to it, it might be considered a peculiar and probably inferior choice.
+
+In ``hard real time'' applications, all dynamic memory allocation and freeing, and especially garbage collection, are quite frowned upon. This rules out almost all modern languages (including Python, Java, C-Sharp,\ldots{}).
+
+When programming for an ``embedded device'' which you expect to be produced and sold in huge numbers, every bit of ROM may add measurably to the overall costs, so you want a language focused on squeezing the application down to the last possible bit. Any language that relies on a rich supporting runtime environment or operating system would force you to spend extra money on more bits of ROM.
+
+There are a lot of other kinds of applications that share similar constraints (monstly focused on memory) where the same case would apply again and again. Since none of the above mentioned categories apply and we can bear to have a small amount of ``excess'' data we are fine using Python.
+
+\subsubsection{wxPython}
+We had the idea to make the whole program as native as possible and to accomplish that we decided to use a cross-platform GUI framework because it offers a platform specific look with the same code for all platforms. That means that elements in Octotagger look just like they do in programs coming from your operating system. The reason for that is because the user has grown familiar to these elements. Nothing is strange to him about these objects and he likes seeing them because that is probably one of the reasons why he chose that operating system at first.
+
+We want to give the user the impression that he is using an application which feels like it is coming directly from the operating system, as if it is already embedded from the start. The user should get the experience that there is not even a third party involved. He should get the feeling that our application is just an extension to his basic file manager, an enhancement which is easy to use and simplifies his file management.
+
+The two main frameworks we researched were PyQt and wxPython. Both are really powerful frameworks that provide more than just a GUI. Qt, with its commercial background, has more features than wxWidgets, but is also more complex. The setup is about equal for both, so for us it just comes down to which one is easier to code in.
+
+\subsubsection{PIL}
+Python Imaging Library.
+
+\subsubsection{Management tools}
+Taiga, Toggl, Trello, Punchtime.
 
 \section{Planning and Prototyping} % PoC
 \def\kapitelautor{Erik Ritschl}
@@ -287,6 +319,8 @@ which is used to start the program.
 \input{chapters/execution/contextpane.tex}
 \input{chapters/execution/settings.tex}
 \input{chapters/execution/new_database.tex}
+\input{chapters/execution/create_output_folder.tex}
+\input{chapters/execution/create_gallery_folder.tex}
 
 
 \section{Backend}
