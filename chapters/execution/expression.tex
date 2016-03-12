@@ -1,0 +1,72 @@
+\subsection{expression}
+\def\kapitelautor{Clemens Stadlbauer}
+
+\subsubsection{Abstract}
+
+This module's job is to convert an expression (TODO cref) to its corresponding
+SQL query. It does this by first splitting the expression into segments with
+Python's \tfcode{Scanner} and then iterating over the segments ensuring
+syntactical correctness and building the query in the process.
+
+\subsubsection{Attempts}
+
+Although they weren't multiple attempts during the implementation, there were
+during planning.
+
+The first idea was to represent an expression with special datatypes for each
+possible token and combinations and groupings between tokens. While this would
+have been the most expressive and structured solution it is sadly not possible
+to implement in Python because Python has no support for annotated values due
+to its lacking type system.
+
+To circumvent this, an alternative solution would be to express values as a
+list or dictionary carrying the annotation. The problem with this approach is
+that the resulting structure would be nested far deeper than the original
+expression and working with it would be needlessly complicated.
+
+\subsubsection{Solution} % TODO better title
+
+Shortly prior to implementing this module, Clemens, who's responsible for the
+implementation, read about an undocumented feature inside Python's \tfcode{re}
+module that provided exactly the functionality needed for the first step.
+\tfcode{Scanner} is the class in question and it works by splitting a string
+into parts based on a list of regular expressions and optionally passing the
+part through a conversion function. For OctoTagger the parts don't need to be
+converted but this feature is used to strip whitespace and error on unknown
+tokens.
+
+\begin{minted}{python}
+    scanner = re.Scanner([
+        (REG_NUM, identity),
+        (REG_TAG, identity),
+        (REG_OP, identity),
+        (REG_GROUP, identity),
+        (r'\s+', None),
+        (r'', unknown),
+    ])
+\end{minted}
+
+After a simple parenthesis count the tokens are step by step grouped together.
+First the three tokens required for the numerical comparison (tag name, literal
+``='' and number) are grouped into one token. Next all completed comparisons
+are converted to a query and then, if present, inversions (read ``not'') are
+applied.
+
+At this point all comparisons are finished and only need to be combined. This
+happens by first grouping together all tokens inside a group (enclosed by
+parentheses). The last step is to split the tokens at ``or'' tokens (``/''),
+pairing the tags within both sides with ``and'' and finally pairing the sides
+with ``or''.
+
+\paragraph{Additional methods}
+
+In addition to converting an expression to a query, this module also provides
+two methods map over tag names or ids inside an expression named
+\tfcode{map_tag_name} and \tfcode{map_tag_id} respectively. What these
+functions do is pass each tag name or id to a supplied callback function and
+use the result of the callback as a replacement.
+
+These functions are mainly used for converting an expression with tag names,
+which the user enters, to an expression with tag ids, which is stored in the
+database, and converting the other way.
+% TODO cref where it is used?
