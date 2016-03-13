@@ -30,13 +30,27 @@ We had the idea to make the whole program as native as possible and to accomplis
 
 We want to give the user the impression that he is using an application which feels like it is coming directly from the operating system, as if it is already embedded from the start. The user should get the experience that there is not even a third party involved. He should get the feeling that our application is just an extension to his basic file manager, an enhancement which is easy to use and simplifies his file management.
 
-The two main frameworks we researched were PyQt and wxPython. Both are really powerful frameworks that provide more than just a GUI. Qt, with its commercial background, has more features than wxWidgets, but is also more complex. The setup is about equal for both, so for us it just comes down to which one is easier to code in.
+The two main frameworks we researched were PyQt and wxPython. Both are really powerful frameworks that provide more than just a GUI. Qt, with its commercial background, has more features than wxWidgets, but is also more complex. The setup is about equal for both, so for us it just comes down to which one is easier to code in. But before deciding we agreed to compare the two frameworks, so we would have an easier time determining which one we would eventually use. This is what we came up with:
+
+\begin{itemize}
+	\item Both Qt and wxWidgets have many non-GUI-related classes, such as date/time, containers, networking and OpenGL functionality.
+	\item Qt4.5 is available on MS Windows, Mac, and GNU/Linux under the LGPL and under a commercial license. All ports of wxWidgets are distributed under a permissive modified (but explicitly OSI-approved) LGPL, which allows development and distribution of proprietary applications without license costs.
+	\item Qt doesn't have true native ports like wxWidgets does. Qt does not use system provided widgets, but emulates it with themes. What is meant by this is that even though Qt draws them quite realistically, Qt draws its own widgets on each platform. It's worth mentioning though that Qt comes with special styles for Mac OS X and MS Windows XP and Vista that use native APIs (Appeareance Manager on Mac OS X, UxTheme on Windows XP) for drawing standard widget primitives (e.g. scrollbars or buttons) exactly like any native application.
+	\item They both offer numerous IDEs.
+	\item Qt extends the C++ language with the MOC (Meta Object Compiler) to provide additional features like signal-slots. An advantage is the accuracy of signal-slot event processing; a disadvantage is that this invades your build system and makes use of non-standard language features. wxWidgets does not extend the C++ language and as such might be less intrusive to the build system or less surprising to developers expecting standard C++.
+\end{itemize}
+
+At this point we were not reluctant to use either wxWidgets or PyQt but we liked wx a little bit more. Therefore we made the decision to build a primitive prototype of the GUI and if we had ran into any problems or disliked coding with wxWidgets overall we would have taken another look at Qt. Since we had no major concerns we kept working with wxWidgets.
 
 \subsubsection{PIL}
-Python Imaging Library. % TODO expand on this
+The Python Imaging Library (PIL) adds image processing capabilities to your Python interpreter. This library supports many file formats, and provides powerful image processing and graphics capabilities. The decision of which image handling tool we would use was really simple and proceeded pretty much without any discussion. PIL is the standard tool for handling these things and there are not many other viable choices. And since we already had experience with this library from school the choice was obvious.
 
 \subsubsection{Management tools}
-Taiga, Toggl, Trello, Punchtime. % TODO expand on this
+At first we started using Trello to manage and to keep track of our tasks. Therefore we  utilized a time tracking tool with Trello integration called Punchtime to keep an eye on our working times. It offers a broad quantity of statistics and charts, which are easy to read and quickly deliver a great amount of information to the user. However we found the usage to be a bit clumsy and disliked the tool overall, same goes for Trello. 
+
+At the same time we were also using Taiga which is a project management platform for agile projects. That was the first tool we found really pleasant and easy to work with, and while it did nearly everything we wanted it to be capable off, we thought that it was not possible to assign tasks the way we wanted it. In the first sprint however we noticed that it was actually possible and so we saw no more reasons to keep using Trello in combination with Punchtime, so we dumped both. The only tool missing now was a time tracking application. We stumbled upon a few of these but the only one really catching our interest was Toggl. It is a great tool to keep an eye on your working time, gather information on how you compare to other team members and how much the entire team has been doing working the course of the project. Also it is extremely easy to work with and we all found it likeable right from the beginning. 
+
+So all in all we kept working with Taiga and Toggl for the entire project.
 
 % TODO SQL
 % TODO RegEx
