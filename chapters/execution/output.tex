@@ -1,0 +1,48 @@
+\subsection{output}
+\def\kapitelautor{Clemens Stadlbauer}
+
+\subsubsection{Abstract}
+
+This module provides a multitude of methods for changing output folders.
+Functionality spans from renaming a folder over changing the link type (TODO
+cref to explanation) to handling file tag changes.
+
+\subsubsection{Solution} % TODO better title
+
+Every method has the same basic procedure. First, a list of all affected output
+folders is acquired, then for each folder the current status is analysed and
+finally the required changes are performed.
+
+% TODO maybe go into detail how foreign files are handled?
+
+\paragraph{Output folder placement}
+
+is controlled with the \tfcode{move} and \tfcode{rename} methods that move or
+rename an output folder, respectively.
+
+\paragraph{Output folder structure} % TODO better title
+
+is controlled with one of three methods. The first is \tfcode{change_link_type}
+which switches an output folder from softlinks to hardlinks or vice versa. This
+is the only method in this category that is applicable to both gallery output
+folders and advanced output folders.
+
+Specific to gallery output folders is \tfcode{change_gallery} which changes
+the list of tags to be contained in the folder. Specific to advanced output
+folders, however, is \tfcode{change_expression} which, as the name says,
+changes the expression for the folder.
+
+\paragraph{Output folders}
+
+in general are handled by \tfcode{create_gallery}, \tfcode{delete_gallery} and
+\tfcode{delete_folder}. The first is used to create the necessary folder
+structure for gallery folders, while the latter are used to clean up output
+folders requested to be deleted.
+
+\paragraph{Files}
+
+have many methods for editing. There is the simple
+\tfcode{change} to assign or remove a tag from a file. Then there are
+\tfcode{rename_file} and \tfcode{rename_tag} to change the displayed names of
+existing files or tags. Finally, for removal, \tfcode{remove} and
+\tfcode{delete_tag} are provided to delete files or tags, respectively.
