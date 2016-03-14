@@ -10,6 +10,12 @@ project. The reason for this is that it includes many functions that could not
 be easily outsourced as a module. Given below is a general overview of the
 module's structure.
 
+\begin{minted}{python}
+	app = wx.App(False)
+	frame = MainWindow(None, "OctoTagger")
+	app.MainLoop()
+\end{minted}
+
 \subsubsection{Constructor}
 
 The constructor initializes the basic user interface and sets some variables
@@ -30,7 +36,7 @@ of wxPython\index{wxPython}, with which one can specify an array of key code
 and function pairs, each of which then serves as an \emph{accelerator}, or
 keyboard shortcut.
 
-\subsubsection{start\_overview()}
+\subsubsection{\tfcode{start_overview()}}
 
 This is the last function called in the constructor. It sets the current mode
 to the default \tfcode{overview}, and gracefully ends the previously active
@@ -41,13 +47,3 @@ In order to start the overview mode, a query for all file ID's is made via the
 gallery's database. These are then given the \tfcode{ItemView}, which proceeds
 with loading the every item. This is where the applications initialization
 ends, and control is passed over to the user.
-
-\begin{listing}[p]
-	\begin{minted}{python}
-		app = wx.App(False)
-		frame = MainWindow(None, "OctoTagger")
-		app.MainLoop()
-	\end{minted}
-	\caption{Starting the applications main loop}
-	\label{lst:mod:mainloop}
-\end{listing}

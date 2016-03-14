@@ -15,6 +15,7 @@
 \usepackage{graphicx}
 \PassOptionsToPackage{normalem}{ulem}
 \usepackage{ulem}
+\usepackage{booktabs}
 \usepackage{minted}
 
 \setminted{autogobble,linenos,tabsize=4}
@@ -90,6 +91,7 @@
 %      {\kopfbild}% re aussen
 
 \def\kapitelautor{}
+% TODO move kapitelautor next to header
 
 % \<left or right side><head or foot>[even side]{odd side}
 \lhead[\kopfbild]{\kopfkapl}
@@ -264,7 +266,7 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 \chapter{Result}
 \input{chapters/result.tex}
 
-\chapter{Execution} % TODO better title
+\chapter{Implementation}
 \input{chapters/execution.tex}
 
 \chapter{Challenges}
