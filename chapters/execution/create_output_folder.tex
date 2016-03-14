@@ -1,11 +1,12 @@
 \subsection{Create/Edit output folder}
 
+%TODO Fix overflow of tfcode
 This section technically covers two modules, \tfcode{create_output_folder} and \tfcode{edit_output_folder}, but they actually are copies of each other with some slight differences. 
 
 When creating an output folder, the user is asked to specify its four attributes, its \emph{name}, \emph{expression}, \emph{location}, and the type of \emph{symbolic link} to be used. Pressing \emph{Ok} causes the folder to be created and registered in the database.
 
 It can be edited by double clicking it in the folder mode. The current settings are filled in automatically, and can be edited and updated. In both scenarios checks for the validity of the input are made. For example, if the expression contains tag names that do not exist, a warning is shown to the user. 
 
-In the first implementation, expressions were simply saved as a strings, just they way the user typed them. But this was not a viable solution once tags could be renamed. One would have had to update every expression in all folders containing a recently renamed tag. This issue was solved by first converting the expression string to not use the names, but IDs of the tags. When reading an expression from the database, it is converted back. The \tfcode{expression} module also had to be updated to accommodate this change. 
+In the first implementation, expressions were simply saved as a strings, just the way the user typed them. But this was not a viable solution once tags could be renamed. One would have had to update every expression in all folders containing a recently renamed tag. This issue was solved by first converting the expression string to not use the names, but IDs of the tags. When reading an expression from the database, it is converted back. The \tfcode{expression} module also had to be updated to accommodate this change. 
 
-In the case that a tag that was used in an expression is deleted from the system, its name is replaced with question marks within the expression field of the relevant folders, and the user is asked to update it accordingly.
+If a tag that was used in an expression is deleted from the system, its name is replaced with question marks within the expression field of the relevant folders, and the user is asked to update it accordingly.
