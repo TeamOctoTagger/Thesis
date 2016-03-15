@@ -1,0 +1,45 @@
+\subsection{Modulename}
+\def\kapitelautor{}
+% TODO all of pywinlink
+
+\subsubsection{Abstract}
+
+\subsubsection{Attempts}
+
+\subsubsection{Solution} % TODO better title
+
+\paragraph{The service} runs in the background with administrative privileges
+and listens for a client to connect, reads the necessary information and
+creates a new symlink according to this information. This is achieved with a
+named pipe. Named pipes enable to programs to communicate with each other based
+on a mutually known name. When the service is started it tries to create a
+named pipe and crashes if it wasn't able to. This is the only time the service
+can crash.
+
+Now that the pipe is open the service listens. Once a connection is established
+it tries to read the target path, the link path and whether or not a hardlink
+instead of a softlink should be created, in this order. The paths are UTF-8
+encoded and the third parameter is either \tfcode{"True"} or \tfcode{"False"}.
+Now that the service has all the information it tries to create the symlink. In
+the event of an error the client is notified about it along with an error
+message, otherwise a success signal is sent back.
+
+Finally, all writes to the pipe are flushed, the connection is closed and the
+service listens for the next client.
+
+\paragraph{The client} is a small module that provides just a \tfcode{symlink}
+method. This method can be split into two general steps, connecting to the pipe
+and communicating over the pipe.
+
+To connect to a pipe the client has to take into consideration other clients
+that might block it. Because of this, when the client notices that the pipe is
+busy, it waits a small amount of time and then tries again.
+
+Once the connection is established sends the two paths and the link type, each
+time checking if writing to the pipe succeeded and throwing an error if not.
+The two paths are sent as UTF-8 encoded strings of the absolute paths. Absolute
+because the service is running in an unknown current working directory and
+would interpret relative paths different to the client.
+
+Finally, the client reads the return message from the service, if it is an
+error message throws it, and closes the connection.

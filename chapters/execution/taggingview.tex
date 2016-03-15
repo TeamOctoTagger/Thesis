@@ -1,0 +1,24 @@
+\subsection{Modulename}
+\def\kapitelautor{}
+% TODO all of taggingview
+
+\subsubsection{Abstract}
+
+\subsubsection{Attempts}
+
+\subsubsection{Solution} % TODO better title
+
+\paragraph{Image preloading} is done to improve the user experience since every
+time a new picture has to be displayed it first needs to be loaded into memory
+and then scaled to fit the frame perfectly. To improve loading times a ring
+buffer is used. This buffer always has the current and the two neighbouring
+images loaded in full size, so that when the user changes the image it is
+already loaded.
+
+Every field in the buffer has a reference to a thread which loads the image.
+When the image is changed the ring buffer is rotated to mark the next or
+previous field, depending on user input, as the new current field. During this
+the field opposite to the current is rotated over the ``edge'' of the ring
+buffer, it moves from furthest back to furthest ahead or vice versa. This field
+is invalidated, loaded with the information about the correct image and its
+thread is started.
