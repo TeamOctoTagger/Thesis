@@ -210,8 +210,9 @@ certain category of files.
 
 \tfpath{system.sql} contains the schema of the main database which in turn
 contains the user settings and the location of all galleries.
-\Cref{lst:db:system} shows the entire schema. When the program is started for
-the first time these tables are filled with the following default values.
+\Cref{lst:db:system} on \cpageref{lst:db:system} shows the entire schema. When
+the program is started for the first time these tables are filled with the
+following default values.
 
 \begin{table}[!h]
 	\centering
@@ -238,7 +239,8 @@ the first time these tables are filled with the following default values.
 Every gallery has its own database as described in \tfpath{gallery.sql}
 containing all imported files, all created tags and all created output folders.
 The connections between these items (for example which tags a file has) are
-recorded in intermediate tables. \Cref{lst:db:gallery} shows the entire schema.
+recorded in intermediate tables. \Cref{lst:db:gallery} in
+\cpageref{lst:db:gallery} shows the entire schema.
 
 Furthermore, the directory contains the helper script \tfpath{setup.py} to
 create the initial system database and an empty gallery database which is
