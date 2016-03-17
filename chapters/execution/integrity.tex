@@ -1,0 +1,30 @@
+\subsection{\tfcode{integrity}}
+\def\kapitelautor{Clemens Stadlbauer}
+
+\subsubsection{Abstract}
+
+This modules checks if a gallery's database fell out of sync with the file
+system at some point. The \tfcode{check} method updates all output folders and
+informs the user of missing or foreign files in the gallery.
+
+\subsubsection{Attempts}
+
+Early during development, even before gallery output folders existed, an
+incomplete version of the integrity check existed which only updated output
+folders. Development was moved to other, more important parts of OctoTagger
+until towards the end of development this module was completely redone with all
+the new features in mind.
+
+\subsubsection{Solution} % TODO better title
+
+The functionality can be split into three parts: gallery output folders,
+advanced output folders and the gallery source folder. For all output folders
+missing files are created. Gallery output folders have the additional check if
+folders for each associated tag are present.
+
+The gallery source folders are handled more carefully because the user is
+expected not to interact with it meaning discrepancies could be the result of
+an unknown error from the user. Because of this no files are modified or
+deleted, instead the user is informed.
+
+% TODO screenshot
