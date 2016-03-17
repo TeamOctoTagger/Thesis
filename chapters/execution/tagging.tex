@@ -1,7 +1,8 @@
-\subsection{tagging}
+\subsection{\tfcode{tagging}}
+\def\kapitelautor{Erik Ritschl}
 
 This is one of the most important backend modules. It is this file that provides the necessary functions for creating, assigning, and reading of tags, among others. \tfcode{create_tag} takes a tag name as argument, checks if a tag with that name already exists, writes the tag into the database, and returns its ID. \tfcode{tag_file} takes a file id in addition to a tag name, and writes the relationship to the database, creating the tag in the process should it not already exist. 
 
 The module also provides the means to find out what tags a given file already has or what all registered tags in the system are, converting between ID and name of files and tags, as well as removing tags from files.
 
-% TODO Not well written
+%TODO Not well written
