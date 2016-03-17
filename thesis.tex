@@ -17,6 +17,8 @@
 \usepackage{ulem}
 \usepackage{booktabs}
 \usepackage{minted}
+\usepackage{xcolor}
+\newcommand\crule[3][black]{\color{#1}{\rule{#2}{#3}}}
 
 \setminted{autogobble,linenos,tabsize=4}
 
@@ -274,7 +276,8 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 %\input{chapters/challenges.tex} Whom it may concern
 
 \chapter{Evaluation}
-%\input{chapters/evaluation.tex} Julian Lorenz
+\def\kapitelautor{Julian Lorenz}
+\input{chapters/evaluation.tex}
 
 \chapter{The Future\ldots}
 \input{chapters/outlook.tex}
