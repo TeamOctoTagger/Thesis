@@ -1,6 +1,164 @@
 \section{Theory}
-\def\kapitelautor{Christoph Führer}
+\def\kapitelautor{Clemens Stadlbauer}
 % TODO explain technical theory
+
+\subsection{Symlink}%
+\label{subsec:theory:symlink}
+
+On a computer there are files to give information a name and folders to
+structure files. This creates an hierarchical storage where each file can be
+identified by the path of the folders containing it and the name of the file.
+This layout has the restriction where every piece of information can only have
+one name. One can copy a file and give the copy a different name, but the
+contents of those files are not linked and just happen to be the same.
+
+This is where \emph{symlinks} come in. A symlink looks and acts like a normal
+file but doesn't hold any contents. Instead they point to another file which
+actually holds the information. But there are actually two different types of
+symlinks, both with their share of advantages and disadvantages.
+
+\subsubsection{Softlink}%
+\label{theory:softlink}
+
+The \emph{softlink} is the first and more common type of a symlink. It
+literally just saves a relative or absolute path that is automatically followed
+when accessing the file. This allows for the softlink to reside on an entirely
+different storage medium than the file it points to. Editing either the file or
+the softlink will in both cases result in editing the contents of file. Care
+has to be taken as when either the file or the softlink is moved to another
+location it is possible that the path of the softlink points to a nonexistent
+file, since the path is only followed upon accessing the softlink.
+
+\subsubsection{Hardlink}%
+\label{theory:hardlink}
+
+The other type is the \emph{hardlink} that directly shares the content with
+other files. The filesystem (the part of a computer that manages folders, files
+and their contents) keeps a count for each content of how many files are linked
+to it. Every time a hardlink is created the counter is incremented and every
+time a file is deleted the counter is decremented. When the counter hits zero
+the contents become inaccessible and are deleted. With this type the file
+location is no longer a problem as long as they stay on the same storage medium
+because hardlinks can only be created with one filesystem.
+
+\subsection{Gallery}%
+\label{subsec:theory:gallery}
+
+In OctoTagger a gallery is an isolated collection of files, tags and some
+meta-information. An installation-wide file contains a list of all created
+galleries and their locations; each gallery contains a list of all imported
+files, their tags, all created output folders (see
+\cref{subsec:theory:output_folder}) and, in the gallery source folder, the
+contents of all imported files.
+
+As a user you get to decide where a gallery is created but should not be
+concerned about what is stored inside of it. However, it must not be deleted as
+this would result in a permanent loss of data since this is the central
+repository of all imported files. Output folders can be safely deleted as they
+don't contain any actual data (see \cref{subsec:theory:symlink} for an
+explanation as for how this is possible).
+
+Creating a gallery on a removable storage medium enables having it available
+on the go. Albeit care has to be taken as all output folders not located on the
+removable storage medium will stop working once it is removed. In contrast
+output folders located on the medium along with the gallery will work
+regardless of which computer it is plugged into.
+
+\subsection{Output folder}%
+\label{subsec:theory:output_folder}
+
+A gallery (see \cref{subsec:theory:gallery}) can have any number of output
+folders where each of them contains files from that gallery meeting certain,
+user-specified criteria. There are two types of output folders.
+
+\subsubsection{Gallery output folder}
+
+Not to be confused with galleries, these output folders are the simpler of the
+two available. They save a list of associated tags, each of which gets its own
+folder, inside the gallery output folder, containing all files from the gallery
+with that tag. Every newly created gallery automatically creates a gallery
+output folders in the user's home directory with all tags, even those that are
+created afterwards, associated with it. This way users with just a small amount
+of tags or simple needs will never have to create any output folder on their
+own.
+
+\subsubsection{Advanced output folder}%
+\label{theory:advanced_output_folder}
+
+These contain all files that match an expression (see
+\cref{subsec:theory:expression}). This type of output folder is for the more
+advanced users who want total control of their output folders and for those
+users who have too many tags for gallery output folders to make sense anymore.
+Of course they can still be used to filter for just one specific tag.
+
+\subsection{Expression}%
+\label{subsec:theory:expression}
+
+In OctoTagger an expression is a logical construct used to query files.
+Basically they are a list of tags, each checked for existence or absence,
+joined into multiple groups and combined with the logical operators ``and'' and
+``or''. Take the following example:
+
+\begin{verbatim}
+beach ( -people / night )
+\end{verbatim}
+
+We want to find all holiday pictures with an empty or nearly empty beach so of
+course we include the \emph{beach} tag. As for whether or not there are many
+people on the picture we (as an example) know that we didn't specifically tag
+how many people there are on the picture but we know that during the night
+there never were many people. With this we can, in addition to there being a
+beach, say we want all pictures either with no people at all or where it's
+night. For a more detailed instruction to expressions refer to the user manual.
+% TODO ref manual
+
+These expressions can be used in two places. While in the overview mode (see
+\cref{subsec:theory:modes}) with no items selected you can use the search field
+to filter the currently displayed items with an expression. The other use is
+for advanced output folders (see
+\cref{theory:advanced_output_folder}) which only output files
+matching an expression.
+
+\subsection{Modes}%
+\label{subsec:theory:modes}
+
+During normal use of this software the user will encounter the various modes
+available in it. Following are the available modes and an explanation of what
+they do. To find out how to get to them refer to the user manual.
+% TODO ref manual
+
+\subsubsection{Overview}%
+\label{theory:overview_mode}
+
+This is the default mode that displays imported files in a grid. In it the user
+can edit the tags associated to a file and search the importedfiles. For
+implementation details see \cref{subsec:mod:itemview} on
+\cpageref{subsec:mod:itemview}.
+
+\subsubsection{Folder}%
+\label{theory:folder_mode}
+
+Very similar to the overview mode only here all output folders (see
+\cref{subsec:theory:output_folder}) are displayed instead of all imported
+files. The user can delete, edit and create output folders here. This shares
+the same implementation as the overview mode.
+
+\subsubsection{Import}%
+\label{theory:import_mode}
+
+Once the user starts the importing process this mode is presented. In it the
+user can see and traverse the imported folder structure laid out in a grid. The
+functionality is almost identical to the overview mode, only folder traversal
+is added, and shares the same implementation.
+
+\subsubsection{Tagging}%
+\label{theory:tagging_mode}
+
+Upon double clicking on an item in the overview mode the tagging mode is
+started. Here single items are displayed as big as possible to make it easier
+for the user to identify images. Additionally, when the user starts to use the
+tag field, a dropdown menu is displayed containing tag suggestions sorted by
+relevance.
 
 \section{Technologies}
 \def\kapitelautor{Christoph Führer}
