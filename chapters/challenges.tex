@@ -1,0 +1,32 @@
+\section{wxWidgets}
+
+Early during development the team struggled with wxWidgets. It seemed far to
+difficult and time consuming creating even the simplest widgets. This was
+caused by the sparse understanding of wxWidgets' methodology the team had at
+that point in time.
+
+But this misunderstanding was not to last, as every member of the team is a
+quick learner; realizing that wxWidgets provides building blocks instead of
+finished widgets took only a few days. Growing comfortable with the API and
+learning the tricks of wxWidgets both helped with not only solving this problem
+but also with speeding up development.
+
+\section{Windows}
+
+OctoTagger was planned to be cross-platform from the start, but the team
+already knew that symlinks are not as easy on Windows as they are on other
+platforms. This is the reason why one team member --- Christoph Führer --- was
+assigned with the special task of finding a solution to creating symlinks on
+Windows.
+
+Throughout the development solutions kept being discovered at a steady pace.
+Each one of them has been analysed, understood and tested with the product,
+but, unfortunately, none of the solutions worked. The general problem seems to
+be that all the answers and solutions discovered are outdated and no longer
+apply.
+
+The only option left was to create a new and working solution to this problem.
+Hints, technologies and various code snippets kept coming up during the
+research, though never as concrete as the other solutions, and were finally
+used to implement \emph{pywinlink}. For more details on how it was implemented
+see \cref{subsec:mod:pywinlink}.
