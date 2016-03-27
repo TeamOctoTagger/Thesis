@@ -1,0 +1,8 @@
+\subsection{\tfcode{suggestion}}
+\label{sub:mod:suggestion}
+\def\kapitelautor{Christoph Führer}
+
+This module contains only one function named \tfcode{get_suggestions}. As for the only argument that is needed, it demands an array of File-IDs. The function takes the frequency of how often a tag is used and the tag correlation between the given files into consideration. Based on this it returns an array of a maximum of ten tags which are the most likely to be given to the specified files. Tags that are already assigned to every specified file will not be suggested of course.
+
+This function is only used when the user clicks on the tag bar while one or multiple files are selected. Every selected files' file id will then be written in the array which is the argument for the function. Afterwards, OctoTagger creates a small window where the suggested tags are shown. These can be assigned by clicking on one of them or by pressing the \textit{ENTER} key after selecting the tag with the help of the \textit{UP} or \textit{DOWN} key.
+
