@@ -1,4 +1,35 @@
 \section{Goals}
+\def\kapitelautor{Julian Lorenz}
+\subsection{Mandatory Goals}
+
+All of the mandatory goals have been implemented.
+
+\begin{description}
+\item [RE-M 1: Cross Platform] Windows, Linux and Mac OS are supported. \checkmark
+\item [RE-M 2: Assign Tags to Files] \checkmark
+\item [RE-M 3: No Redundant Storage] Symbolic links avoid redundant storage. \checkmark
+\item [RE-M 4: Tags as Output Folder] Those output folders can be created with the help of gallery folders. \checkmark
+\item [RE-M 5: Complex Queries] Advanced output folders can directly be created out of a search query. \checkmark
+\item [RE-M 6: Tag Suggestions] \checkmark
+\item [RE-M 7: Public Licence] GPLv3 \checkmark
+\item [RE-M 8: Documentation] A user manual has been created as PDF. \checkmark
+\item [RE-M 9: Website] \url{http://octotagger.co} \checkmark
+\item [RE-M 10: English] OctoTagger UI, Website and Documentation in English. \checkmark
+\end{description}
+
+
+\subsection{Optional Goals}
+
+None of the optional goal could be fulfilled.
+
+\begin{description}
+\item [\st{RE-O 1: Numerical Tags}]
+\item [\st{RE-O 2: Content Based Suggestions}] 
+\item [\st{RE-O 3: Store Tags in Images}] 
+\item [\st{RE-O 4: Export and Import Tags}] 
+
+\end{description}
+
 
 \section{Lessons Learned}
 \def\kapitelautor{}
@@ -49,7 +80,30 @@ parts of the software. Most of these regression bugs were in the frontend
 because none of us are experts in wxWidgets but it nonetheless showed me the
 importance of pinning down correct behavior with a test.
 
+Finally, as soon as multiple people work on a project and some form of
+collaboration is required I noticed that it is really important that everyone
+understand the collaboration tools used, which are in our case \emph{Taiga},
+\emph{GitHub} and \emph{Git}. If someone doesn't know how to use one of
+these tools and makes a mistake, everyone suffers from this mistake!
+
 \subsection{Christoph Führer}
+
+\paragraph{}
+I have learned a lot about how fragile a project, especially a software project, can be. Small misconceptions between team members and their vision about the final product can be followed by severe consequences. While every member of the team had a similar idea of how OctoTagger should look like in the end, everyone still had some different opinions, concepts and ways of how we should proceed to the implementation. This could be reasoned by saying that we lacked an accurate planning. It could also be said that we did not communicate enough about how everybody wanted the end product to look like. While this is partly true from my perspective, I also believe that we just had a lack in the amount of research we did in the summer. Furthermore, everybody researched something else and we did not compare appropriately what has been found out. So when we started developing the software everybody was on a different level of knowledge and generally just not on equal ground. This is where many of the misconceptions came from in my opinion.  
+
+Doing an extensive amount of research is just that important, especially when working with technologies completely unfamiliar to someone (In our case: Python, wxWidgets, PIL,\ldots). I cannot even imagine how much of a better planning phase we could have had if we had just added a few hours of research and comparison to everybody's tasks. The Windows Symlink problem (chapter 4, Implementation, pywinlink) for example this task far exceeded our expectation and therefore was planned to take about a fifth of the time it eventually took us. This led to an unexpected shift of working time, tasks and a change of the whole module structure which could have been prevented by doing proper research. While this was probably the biggest case of lacking research there were multiple more scenarios where it could have helped by a tremendous amount.
+
+All in all, a lack of research always goes hand in hand with a lack of experience. If one is experienced enough he does not have to research as much as one who is not. However, I do not believe that we were at fault for not being experienced enough. We chose to go a path where we had to learn ourselves a lot of new things. We knew that we had a deficiency of experience in many matters and that we would have to research a lot on our own. The fact that we neglected this a little bit gave us a lot of trouble which could have been prevented easily.
+
+\paragraph{}
+Furthermore, I learned that setting goals is extremely important. Not just setting goals for the team or the product but for yourself. While having a goal which has to be fulfilled at the end of the task, like a definition of done, is a necessary thing too, it is not the only goal that should be set in my opinion. If one plans a clear goal of what he wants to have done at the end of a block of work, his efficiency will rise by a great amount. On the other hand, if one works on a task day for day without defining what he wants to be done after each block of work he will not feel satisfied with what he has done until the whole task is eventually finished. Having a clear vision of what you want to achieve at the end of the day can help making the work so much more efficient, effective and entertaining.
+
 \subsection{Julian Lorenz}
 
-\section{Summary}
+One of the lessons I have learned is how easy it is to underestimate the effort for software development. One reason for that was the missing experience with the used technologies. In addition testing, finding bugs and fixing them took a lot more time than expected. Our initial goal to fully test the software every week could not be reached due to lack of time. Because of the fact that OctoTagger is a cross platform application, differences between supported operating systems have also been underestimated.
+
+This project taught me how important communication between team members is. For example changes in the software were added ad hoc and sometimes have not been communicated to all members. Additional face to face meetings could have improved outcome, as some misunderstandings could have been avoided.
+
+Developing the OctoTagger website showed me the importance of testing on different devices, browsers and operating systems as soon as possible. Testing on a different computer could have avoided unnecessary platform specific mistakes.
+
+Another experience I have made during web development is that tiny mistakes (e.g. typos) can lead to long hours of bug tracking. So before doing long research on the internet, it's sometimes helpful to inspect the source code properly for such kind of mistakes. Often the proposed solution in online forums are misleading and can result in long fruitless activities.
