@@ -6,12 +6,29 @@
 
 \subsubsection{Attempts}
 
+Originally the image was displayed using a \emph{StaticBitmap} widgets centered
+using sizers. Here the problem arose with transparent images which would not
+display. This was solved by removing the StaticBitmap and instead scaling the
+image to fit the panel and drawing it directly onto it using a \emph{DC}. The
+next problem was that some images were displayed on a black background instead
+of the gray of the panel, which came from scaling the image to fit the panel.
+The solution was leave the image too small and drawing it in the center. Finally
+some systems would not display the image at all, which was solved by
+implementing a double buffer: every time the window is resized the buffer is
+resized to fit and the image, with the appropriate background color, is drawn
+into it and each time the system requests a redraw of the panel the buffer is
+copied into it.
+
 \subsubsection{Solution} % TODO better title
+
+\paragraph{Drawing the image} has undergone some version throughout development,
+but the current version uses a \emph{DC} to draw to an internal \emph{Bitmap}
+that is painted to the screen on every paint event.
 
 \paragraph{Image preloading} is done to improve the user experience since every
 time a new picture has to be displayed it first needs to be loaded into memory
 and then scaled to fit the frame perfectly. To improve loading times a ring
-buffer is used. This buffer always has the current and the two neighbouring
+buffer is used. This buffer always has the current and the two neighboring
 images loaded in full size, so that when the user changes the image it is
 already loaded.
 
