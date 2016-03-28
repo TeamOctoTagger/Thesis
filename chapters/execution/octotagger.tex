@@ -45,7 +45,7 @@ ends, and control is passed over to the user.
 
 %TODO link taglist
 The application's modes are not just defined in a few functions or classes, but are rather a conglomerate of 
-different behaviors in every element. For example, when the a tag gets selected via checkbox in the \emph{tag list}, the function \tfcode{select_tags} is called, which then does different things depending on the \tfcode{self.mode} variable. If its value is \tfcode{"folder"}, the function exits immediately because it should not have any effect in \emph{folder} mode. But in \emph{overview} and \emph{tagging} mode, the selected items get the corresponding tag either assigned or unassigned, depending on the circumstances. But there are also many functions that work only in their specific mode (these are described in following sections) or completely independently from the active mode.
+different behaviors in every element. For example, when a tag gets selected via checkbox in the \emph{tag list}, the function \tfcode{select_tags} is called, which then does different things depending on the \tfcode{self.mode} variable. If its value is \tfcode{"folder"}, the function exits immediately because it should not have any effect in \emph{folder} mode. But in \emph{overview} and \emph{tagging} mode, the selected items get the corresponding tag either assigned or unassigned, depending on the circumstances. But there are also many functions that work only in their specific mode (these are described in following sections) or completely independently from the active mode.
 
 Because a lot of \tfcode{If}-Statements are involved, some convenience functions were created. For example, the way selected items are measured in \emph{tagging} mode differs from the other modes, and that is why a function was written that always returns the currently selected items, regardless of active mode.
 
@@ -62,7 +62,7 @@ In \emph{overview mode}, all imported files are displayed in the \emph{item view
 
 Writing into the text field on the top left can have two different results. When no files are selected, it automatically evaluates the input as a tag expression and filters the displayed items by it. Otherwise, it only takes effect when there is a file selection and \emph{Enter} is pressed, upon which the input is interpreted as  a new tag name which then assigned to the items. 
 
-Checking a tag in the \emph{tag list} also depends on whether items are selected. If they are, the tag gets assigned to the items. If not, the tag name is written into the search field, causing the filtering to occur.
+The effect of checking a tag in the \emph{tag list} also depends on whether items are selected. If they are, the tag gets assigned to the items. If not, the tag name is written into the search field, causing the filtering to occur.
 
 The \emph{View} menu has the options to only display tagged, untagged or all files, as well as switching to \emph{folder} mode.
 
