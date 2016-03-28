@@ -26,7 +26,7 @@ expression and working with it would be needlessly complicated.
 
 \subsubsection{Solution} % TODO better title
 
-Shortly prior to implementing this module, Clemens, who's responsible for the
+Shortly prior to implementing this module, Clemens, who was responsible for the
 implementation, read about an undocumented feature inside Python's \tfcode{re}
 module that provided exactly the functionality needed for the first step.
 \tfcode{Scanner} is the class in question and it works by splitting a string
@@ -61,7 +61,7 @@ with ``or''.
 \paragraph{Additional methods}
 
 In addition to converting an expression to a query, this module also provides
-two methods map over tag names or ids inside an expression named
+two methods to map over tag names or ids inside an expression named
 \tfcode{map_tag_name} and \tfcode{map_tag_id} respectively. What these
 functions do is pass each tag name or id to a supplied callback function and
 use the result of the callback as a replacement.
