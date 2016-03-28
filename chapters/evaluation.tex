@@ -1,9 +1,43 @@
 \section{Goals}
 
 \section{Lessons Learned}
+\def\kapitelautor{}
 
 \subsection{Erik Ritschl}
 \subsection{Clemens Stadlbauer}
+
+I have learned quite a lot about the pitfalls a project can have while working
+on OctoTagger. The most important aspect, to me at least, is the continuous
+ensurance of quality. Defining a small set of absolutely mandatory goals at the
+beginning that capture the vision of the project, creating a functional
+prototype that tests all requirements and writing automated tests to prevent
+regressions from happening.
+
+Having a clear vision from the start discourages implementing features which do
+not align with this vision. We did not have such a fixed vision and I noticed
+from time to time newly implemented features that seemed a bit out of place
+because everyone had their own idea of what the software should do. The source
+code as well should be structured so that it represents the vision resulting
+in a module tree that represents how the product functions. For OctoTagger we
+did not define a module layout and now we have just a bunch of files that are
+difficult to manage.
+
+Each external technology a program uses can break in unexpected ways. For this
+reason a prototype is crafted, to see if all technologies really do solve our
+problems instead of introducing new ones. I always though a prototype only has
+to test functionality but there is one more aspect it must have: it must fulfill
+all the requirements of the project. For OctoTagger a prototype showing that
+managing tagged files is possible was created but some assumptions, mainly about
+symlinks on Windows, were made that have not been clearly defined in the
+contract. Had we not made assumptions here we would have saved a lot of time.
+
+During development bugs appeared, which we anticipated, but as we neared
+project completion fixing bugs became more difficult due to everything being
+fragile. Fixing one bug resulted in breaking multiple other, previously working
+parts of the software. Most of these regression bugs were in the frontend
+because none of us are experts in wxWidgets but it nontheless showed me the
+importance of pinning down correct behaviour with a test.
+
 \subsection{Christoph Führer}
 \subsection{Julian Lorenz}
 

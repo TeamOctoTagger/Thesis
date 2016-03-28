@@ -1,5 +1,5 @@
 \RequirePackage[l2tabu, orthodox]{nag}
-\documentclass[12pt,a4paper,english,oneside,openright,DIV=12,BCOR=1cm]{scrbook}
+\documentclass[12pt,a4paper,naustrian,english,oneside,openright,DIV=12,BCOR=1cm]{scrbook}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -112,6 +112,7 @@
 % Anfang Titelseite
 \pagenumbering{roman}
 \title{Diplomarbeit}
+\selectlanguage{naustrian}
 \begin{titlepage}
 \begin{minipage}[b]{1\columnwidth}
 \parbox[b]{50mm}{\includegraphics[width=45mm]{images/htl3r-logo}}
@@ -162,10 +163,11 @@ Martina Oswald \\
 
 \begin{center}
 \vspace{5mm}
-Wien, 31. März 2016
+Wien, \today
 \par\end{center}
 
 \end{titlepage}%%%%%%%%%%%%%%%%%%%%% Ende Titelseite %%%%%%%%%%%%%%%%%%%%%%
+\selectlanguage{english}
 
 \addchap*{Abstract}
 
