@@ -14,11 +14,14 @@ module's general structure.
 
 This is the very first code that gets executed:
 
-\begin{minted}{python}
-app = wx.App(False)
-frame = MainWindow(None, "OctoTagger")
-app.MainLoop()
-\end{minted}
+\begin{listing}[H]
+    \begin{minted}{python}
+        app = wx.App(False)
+        frame = MainWindow(None, "OctoTagger")
+        app.MainLoop()
+    \end{minted}
+    \caption{OctoTagger's main loop}
+\end{listing}
 
 It first creates the application object, then the window for it, and finally starts the main loop. The constructor of \tfcode{MainWindow} initializes the basic user interface and sets some variables
 used throughout the application, such as the color theme and the current mode.

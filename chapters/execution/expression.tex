@@ -35,16 +35,19 @@ part through a conversion function. For OctoTagger the parts don't need to be
 converted but this feature is used to strip whitespace and error on unknown
 tokens.
 
-\begin{minted}{python}
-    scanner = re.Scanner([
-        (REG_NUM, identity),
-        (REG_TAG, identity),
-        (REG_OP, identity),
-        (REG_GROUP, identity),
-        (r'\s+', None),
-        (r'', unknown),
-    ])
-\end{minted}
+\begin{listing}[H]
+    \begin{minted}{python}
+        scanner = re.Scanner([
+            (REG_NUM, identity),
+            (REG_TAG, identity),
+            (REG_OP, identity),
+            (REG_GROUP, identity),
+            (r'\s+', None),
+            (r'', unknown),
+        ])
+    \end{minted}
+    \caption{Expression token scanner}
+\end{listing}
 
 After a simple parenthesis count the tokens are step by step grouped together.
 First the three tokens required for the numerical comparison (tag name, literal
