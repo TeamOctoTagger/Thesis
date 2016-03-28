@@ -1,11 +1,22 @@
-\subsection{Modulename}%
+\subsection{pywinlink}
 \label{subsec:mod:pywinlink}
-\def\kapitelautor{}
+\def\kapitelautor{Christoph Führer, Clemens Stadlbauer}
 % TODO all of pywinlink
 
 \subsubsection{Abstract}
 
+This module is only included in the Windows version of OctoTagger. It is responsible for creating symlinks on this operating system. Due to the fact that the user needs to have administrative privileges to create symlinks on Windows a service has been developed which only asks for these rights once on installation and afterwards works without needing any elevation. This path has been chosen because we did not want the whole software to run with administrative privileges by default because of security reasons. 
+
 \subsubsection{Attempts}
+
+At first it was not even noticed that creating symlinks on Windows was that big of a problem. It was thought that it worked pretty similar to other operating systems and therefore was not seen as a big task overall. After some research however, it was found out that this could become way more difficult than we thought it would be. Unlike other operating systems, Windows demands administrative privileges to create symlinks. To be specific, the creation of symbolic links requires the \textit{SeCreateSymbolicLinkPrivilege}, which is granted only to administrators by default. 
+
+The first idea was to grant this right to every user by changing the mentioned privilege using the security policy. After creating a prototype it was found out that this method would be possible but extremely difficult and poor to handle because messing with the user account control in Windows is extremely hard and definitely not best practice. Also, due to the fact that we did not want our software to demand these rights we looked for ways to go around it. 
+
+The second try was to elevate the application whenever the first symlink is created. But this idea was dumped instantly after it was noticed that it would mean that the software would run with administrative rights the whole time. However, this method worked extremely good for testing purposes because by changing a single line of code the application could either be elevated or not. Therefore, from this point onwards it became the prototype for creating symlinks on Windows.
+Since it was wished to build symlinks without administrative privileges it has been tried to create them via a lot of different methods, for example \tfcode{mklink}, junctions, interacting with the powershell and many more. Every time the research resulted in new options, most of them being very promising. Sadly every attempt that was made led to failure. While many of them worked, none of them did without administrative rights.
+ 
+After going through error and failure a lot of times we eventually came up with an appropriate solution, an external module named \textit{pywinlink}. It consists of a windows service with administrative privileges which handles the symlink creation externally and a client to ask for them. The service has to be installed with administrative rights once and from there on starts automatically on every start up of the pc. Since the service is not connected with OctoTagger it is not needed for the main software to demand administrative rights. However, there is no way around asking for these rights at least once, so doing it one time before the installation was found to be the best possible solution. 
 
 \subsubsection{Solution} % TODO better title
 
@@ -36,7 +47,7 @@ To connect to a pipe the client has to take into consideration other clients
 that might block it. Because of this, when the client notices that the pipe is
 busy, it waits a small amount of time and then tries again.
 
-Once the connection is established sends the two paths and the link type, each
+Once the connection is established it sends the two paths and the link type, each
 time checking if writing to the pipe succeeded and throwing an error if not.
 The two paths are sent as UTF-8 encoded strings of the absolute paths. Absolute
 because the service is running in an unknown current working directory and
