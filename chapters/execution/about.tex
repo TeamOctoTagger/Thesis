@@ -4,5 +4,5 @@
 Just like almost every application, OctoTagger also has its own \emph{About} window. It includes  a short description, the developer's names, license information, a link to the project and of course the logo. 
 It was implemented with wxPython's \tfcode{wx.AboutBox} and \tfcode{wx.AboutDialogInfo}, the latter of which is needed to set the contents of the former. This way, the platforms native \emph{About} dialog is used, if available. Otherwise, the default wxPython style is used as a fallback. 
 
-The license field uses the included \tfcode{LICENSE} file as input, which includes the full text of the \emph{GNU General Public License Version 3}. %TODO citation needed
+The license field uses the included \tfcode{LICENSE} file as input, which includes the full text of the \emph{GNU General Public License Version 3} \cite{GPLv3}. 
 During testing, however, it was noticed that the \emph{About} windows used under both Windows and Mac OS X do not allow for scrolling, which causes them to expand beyond the display when selecting the license. Therefore, a check for the current operating system was implemented, so that the whole license is included only under Linux, otherwise only the license name is used.

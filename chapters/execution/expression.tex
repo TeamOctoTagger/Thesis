@@ -1,12 +1,14 @@
 \subsection{\tfcode{expression}}
 \def\kapitelautor{Clemens Stadlbauer}
+\label{subsec:mod:expression}
 
 \subsubsection{Abstract}
 
-This module's job is to convert an expression (TODO cref) to its corresponding
-SQL query. It does this by first splitting the expression into segments with
-Python's \tfcode{Scanner} and then iterating over the segments ensuring
-syntactical correctness and building the query in the process.
+This module's job is to convert an expression (see
+\cref{subsec:theory:expression}) to its corresponding SQL query. It does this by
+first splitting the expression into segments with Python's \tfcode{Scanner}
+\cite{scanner} and then iterating over the segments ensuring syntactical
+correctness and building the query in the process.
 
 \subsubsection{Attempts}
 
