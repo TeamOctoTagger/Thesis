@@ -211,15 +211,15 @@ The Python Imaging Library (PIL) \cite{pil} adds image processing capabilities t
 \label{subsec:technologies:management_tools}
 At first we started using Trello \cite{trello} to manage and to keep track of our tasks. Therefore we  utilized a time tracking tool with Trello integration called Punchtime \cite{punchtime} to keep an eye on our working times. It offers a broad quantity of statistics and charts, which are easy to read and quickly deliver a great amount of information to the user. However we found the usage to be a bit clumsy and disliked the tool overall, same goes for Trello.
 
-At the same time we were also using Taiga \cite{taiga} which is a project management platform for agile projects. That was the first tool we found really pleasant and easy to work with, and while it did nearly everything we wanted it to be capable of, we thought that it was not possible to assign tasks the way we wanted it. In the first sprint however we noticed that it was actually possible and we saw no more reasons to keep using Trello in combination with Punchtime, therefore we discarded both. The only tool missing now was a time tracking application. We stumbled upon a few of these but the only one really catching our interest was Toggl \cite{toggl}. It is a great tool to keep an eye on your working time, gather information on how you compare to other team members and how much the entire team has been working during the course of the project. Also it is extremely easy to work with and we all found it likeable right from the beginning.
+At the same time we were also using Taiga \cite{taiga} which is a project management platform for agile projects. That was the first tool we found really pleasant and easy to work with, and while it did nearly everything we wanted it to be capable of, we thought that it was not possible to assign tasks the way we wanted it. In the first sprint however we noticed that it was actually possible and we saw no more reasons to keep using Trello in combination with Punchtime, therefore both were discarded. The only tool missing now was a time tracking application. We stumbled upon a few of those but the only one really catching our interest was Toggl \cite{toggl}. It is a great tool to keep an eye on your working time, gather information on how you compare to other team members and how much the entire team has been working during the course of the project. Also it is extremely easy to work with and we all found it likeable right from the beginning.
 
 So all in all we kept working with Taiga and Toggl for the entire project.
 
-\subsection{SQL}
+\subsection{SQL - SQLite}
 \label{subsec:technologies:sql}
 
-SQL (Structured Query Language) is a programming language designed for managing data held in a relational database management system. It consists of a data definition language, data manipulation language, and a data control language. The scope of SQL includes data insert, query, update, delete, schema creation and modification, and data access control. 
-We chose SQL because we learned it in school and were familiar with it. Therefore, no problems concerning it came up and it was used throughout the entire project.
+SQL (Structured Query Language) is a language designed for managing data held in a relational database management system. It consists of a data definition language, data manipulation language, and a data control language. The scope of SQL includes data insert, query, update, delete, schema creation and modification, and data access control. 
+We chose \emph{SQLite} \cite{sqlite} because it is already implemented in Python and a perfect overall fit for our product. No problems concerning it came up while developing and it was used throughout the entire project.
 
 \section{Planning and Prototyping} % PoC
 \def\kapitelautor{Erik Ritschl}
@@ -514,6 +514,7 @@ which is used to start the program.
 \input{chapters/execution/export.tex}
 \input{chapters/execution/suggestion.tex}
 \input{chapters/execution/install.tex}
+\input{chapters/execution/windowsinstall.tex}
 \input{chapters/execution/pywinlink.tex}
 
 % TODO explain code
