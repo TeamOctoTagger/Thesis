@@ -13,7 +13,7 @@ one name. One can copy a file and give the copy a different name, but the
 contents of those files are not linked and just happen to be the same.
 
 This is where \emph{symlinks} come in. A symlink looks and acts like a normal
-file but doesn't hold any contents. Instead they point to another file which
+file but doesn't hold any content. Instead they point to another file which
 actually holds the information. But there are actually two different types of
 symlinks, both with their share of advantages and disadvantages.
 
@@ -33,11 +33,11 @@ file, since the path is only followed upon accessing the softlink.
 \label{theory:hardlink}
 
 The other type is the \emph{hardlink} that directly shares the content with
-other files. The filesystem (the part of a computer that manages folders, files
-and their contents) keeps a count for each content of how many files are linked
-to it. Every time a hardlink is created the counter is incremented and every
-time a file is deleted the counter is decremented. When the counter hits zero
-the contents become inaccessible and are deleted. With this type the file
+other files. The file system (the part of a computer that manages folders, files
+and their contents) keeps a count for each content of how many file names are
+linked to it. Every time a hardlink is created the counter is incremented and
+every time a file is deleted the counter is decremented. When the counter hits
+zero the contents become inaccessible and are deleted. With this type the file
 location is no longer a problem as long as they stay on the same storage medium
 because hardlinks can only be created with one filesystem.
 
@@ -58,7 +58,7 @@ repository of all imported files. Output folders can be safely deleted as they
 don't contain any actual data (see \cref{subsec:theory:symlink} for an
 explanation as for how this is possible).
 
-Creating a gallery on a removable storage medium enables having it available
+Creating a gallery on a removable storage medium enables one having it available
 on the go. Albeit care has to be taken as all output folders not located on the
 removable storage medium will stop working once it is removed. In contrast
 output folders located on the medium along with the gallery will work
@@ -68,7 +68,7 @@ regardless of which computer it is plugged into.
 \label{subsec:theory:output_folder}
 
 A gallery (see \cref{subsec:theory:gallery}) can have any number of output
-folders where each of them contains files from that gallery meeting certain,
+folders where each of them contains files from that gallery meeting certain
 user-specified criteria. There are two types of output folders.
 
 \subsubsection{Gallery output folder}
@@ -155,7 +155,7 @@ is added, and shares the same implementation.
 \label{theory:tagging_mode}
 
 Upon double clicking on an item in the overview mode the tagging mode is
-started. Here single items are displayed as big as possible to make it easier
+started. Here single items are displayed as large as possible to make it easier
 for the user to identify images. Additionally, when the user starts to use the
 tag field, a dropdown menu is displayed containing tag suggestions sorted by
 relevance.
@@ -339,7 +339,7 @@ an item in overview mode, selecting \emph{Start tagging mode} in the
 In this mode, only a single item is visible at a time.
 When it is an image file, the image is displayed as big as
 possible, and if not, a generic icon is used instead. This mode can be used to
-go through a larger collection of photos, review each photo's content, and
+go through a larger collection of photos, review each one's content, and
 decide which tags apply. The tag and context panes behave the same way as
 when a single item in the overview mode is selected.
 
@@ -465,6 +465,7 @@ copied every time a new gallery is created by the user.
 	\caption{Gallery database schema}
 	\label{lst:db:gallery}
 \end{listing}
+\FloatBarrier
 
 \subsection{Source}
 Herein lie all the modules that make up the entirety of the functionality and
@@ -479,7 +480,6 @@ which is used to start the program.
 
 
 \section{Frontend}
-%TODO subsection titles as e.g. "Context pane" or "contextpane.py"?
 
 % TODO order
 \input{chapters/execution/octotagger.tex}

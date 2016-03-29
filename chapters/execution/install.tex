@@ -6,8 +6,6 @@ This \emph{Python} script is used to install OctoTagger under Unix platforms. It
 
 Ubuntu stores application launchers as \emph{.desktop} files  in \tfpath{\textasciitilde{}/.local/share/applications}, which are available to the entire system. \tfcode{install.py} generates one of these for OctoTagger. As a result, users searching for "OctoTagger" in their launcher menu will find an appropriate entry with the project logo as icon, which can also be pinned to the taskbar. Native integration has been fully achieved.
 
-%TODO source osacompile 
-
 Unfortunately, OS X made things harder. Generating clickable shortcuts that execute two lines of terminal commands in order to launch a desktop application turned out to be surprisingly cumbersome on the Apple operating system. The best way to do this seems to be with a \emph{.app} file, which represents a standalone executable application. In order to procedurally generate one with \emph{Python}, the terminal command line tool \tfcode{osacompile} was used, which turns an \emph{AppleScript} (a script language created by Apple for controlling aspects of OS X \cite{AppleScript}) into a \emph{.app} application. The \emph{AppleScript} contained code to launch the application with \emph{Python}, and since the path of the source files depends on where \tfcode{install.py} is located on the system when run, it had to be generated. 
 
 However, during testing it was realized that the available \emph{environment variables} \cite{EnvironmentVariables} in \emph{AppleScript} are different from those that are normally available in a terminal window, which caused the started \emph{Python} instance to be unable to locate some of the essential libraries such as \emph{wx} and \emph{PIL}.

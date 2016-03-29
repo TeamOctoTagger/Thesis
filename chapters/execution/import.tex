@@ -4,21 +4,20 @@
 This is the backend module for importing files into the currently active
 gallery, but it also contains some frontend elements.
 
-%TODO fix tfcode
-It only has a single function, \tfcode{import_files}, which takes either a
+Its main function is \tfcode{import_files}, which takes either a
 list of file paths or a \emph{Python dictionary}, where file paths are the keys and
 lists of tags the values, as its argument. The former option corresponds to a
-``Direct file import'', and the latter to an import via the more complex and
-powerful import mode.
+\emph{Direct file import'}, and the latter to an import via the more complex and
+powerful \emph{import} mode (accassible via \emph{Start file import process}).
 
 In both cases, the given data the is being iterated over, and a number of
 procedures are executed for each file. First, a check is made to ensure that
 the file actually exists. Then, a random unique ID gets generated, in form of
 an UUID\index{UUID}. The file is then either moved or copied (a preference
-which can be set in the settings) to the \tfcode{files} folder in the gallery,
-using the UUID\index{UUID} as its name. This is necessary to avoid name
+which can be set in the settings) to the \emph{files} folder in the gallery,
+using the UUID as its name, but retaining its file extension. This is necessary to avoid name
 conflicts, since all files are located in the same directory. Finally, an entry
-is made in the database, saving the file's UUID\index{UUID} as well as its
+is made in the database, saving the file's UUID as well as its
 original name. When a dictionary with tags was used as the argument, the tag relations
 are also made here.
 
@@ -30,3 +29,5 @@ files that have the same name. Same name files are supported by OctoTagger in
 principle, but there are some not easily avoidable inconsistencies that come
 with them. It was therefore decided to warn the user about the potential issues
 and urging him or her to change the file names.
+
+In the case that users rename a file via the \tfcode{RenameItem} function in \tfcode{octotagger.py}, the method \tfcode{rename_file} from this module is called. It takes the new name, extracts its file extension, and updates the extension of the original file in the \emph{files} directory. This was at first thought not to be necessary, since most operating systems use the extension of the \emph{link}, and not the \emph{target} file in order to determine with which application it should be opened. However as it turns out, Microsoft changed this for some reason starting with Windows 8. That's why the link and target both need to share the same file extension.

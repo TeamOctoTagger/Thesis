@@ -12,17 +12,16 @@ module's general structure.
 
 \subsubsection{Starting the software}
 
-This is the very first code that gets executed:
+This is the very first code that gets executed, and can be found at the end of the file at \tfpath{Source Code/octotagger/src/octotagger.py}:
 
 \begin{listing}[H]
-	\begin{minted}{python}
-	app = wx.App(False)
-	frame = MainWindow(None, "OctoTagger")
-	app.MainLoop()
-	\end{minted}
-	\caption{Located in \tfpath{Source Code/octotagger/src/itemview.py}}
+    \begin{minted}{python}
+        app = wx.App(False)
+        frame = MainWindow(None, "OctoTagger")
+        app.MainLoop()
+    \end{minted}
+    \caption{OctoTagger's main loop}
 \end{listing}
-
 
 It first creates the application object, then the window for it, and finally starts the main loop. The constructor of \tfcode{MainWindow} initializes the basic user interface and sets some variables
 used throughout the application, such as the color theme and the current mode.
@@ -81,10 +80,4 @@ This mode is activated by the \emph{Start file import process...} option in the 
 
 In \emph{import} mode, tags can be assigned to files that have not yet been actually imported. Therefore, the tag information can not be saved in the database and has to be saved in the object \tfcode{temp_file_tags}, which uses the file paths as keys and tag ID arrays as values. When a file or folder is removed from the import process, its entry in the object is also deleted. Removing items can be very useful when, for example, one wants to import an entire file directory but without one of the sub-folders.
 
-The process can be ended by importing all files, only tagged files, or aborting. Each of these options is available in the \emph{context pane} and the regular context menu. Since information is lost when aborting, the user is always warned about the consequences when attempting to do so. In all cases, the application returns to \emph{overview} mode.
-
-% overview (query_text, selection change, select tags, get selected items, refresh thumbnails)
-% start tagging mode
-% folder mode
-% import mode
-% key events, on right-click, remove item
+The process can be ended by importing all files, only tagged files, or by aborting. Each of these options is available in the \emph{context pane} and the regular context menu. Since information is lost when aborting, the user is always warned about the consequences when attempting to do so. In all cases, the application returns to \emph{overview} mode.

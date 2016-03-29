@@ -13,7 +13,7 @@ an image has an unregistered mime-type a generic thumbnail will be used.
 \subsubsection{Attempts}
 
 At first we used the original images but it quickly became apparent that this
-wasn't the final solution as the interface would hang for multiple seconds on
+wasn't the final solution as the interface would hang for one or two seconds on
 large images. It was then decided to generate thumbnails of a fixed size and
 save them on disk to improve loading times.
 
@@ -43,4 +43,4 @@ Library}\index{PIL} to load the original image, resize it to fit the desired
 size, add padding to exactly fit this size and finally save it as a png file.
 While jpeg would provide a smaller file size, it does not support transparency.
 
-To see how and when this modules is used see \cref{subsec:mod:itemview}.
+To see how and when this module is used see \cref{subsec:mod:itemview}.
