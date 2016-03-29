@@ -19,13 +19,10 @@
 \usepackage{minted}
 \usepackage{xcolor}
 \newcommand\crule[3][black]{\color{#1}{\rule{#2}{#3}}}
-
 \usepackage{soul}
-\usepackage[utf8]{inputenc}
-\usepackage{dingbat}
-\DeclareUnicodeCharacter{2713}{\checkmark}
-
-
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{placeins}
 
 \setminted{autogobble,linenos,tabsize=4}
 
@@ -277,17 +274,21 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 
 \chapter{Result}
 \def\kapitelautor{Christoph Führer}
+\label{ch:mod:result}
 \input{chapters/result.tex}
 
 \chapter{Implementation}
+\label{ch:mod:implementation}
 \input{chapters/execution.tex}
 
 \chapter{Challenges}
 \def\kapitelautor{Clemens Stadlbauer}
+\label{ch:mod:challanges}
 \input{chapters/challenges.tex}
 
 \chapter{Evaluation}
 \def\kapitelautor{Julian Lorenz}
+\label{ch:mod:evaluation}
 \input{chapters/evaluation.tex}
 
 \chapter{The Future\ldots}
@@ -299,10 +300,188 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 
 \chapter{Appendix}
 
-\printindex{}
-
 \bibliographystyle{plaindin}
-\bibliography{thesis}
+\begin{thebibliography}{999}
+	
+	\bibitem{trello} Trello: 
+	 
+	\url{https://trello.com/}
+	
+	\bibitem{taiga} Taiga:  
+	
+	\url{https://taiga.io/}
+	
+	\bibitem{toggl} Toggl: 
+	 
+	\url{https://toggl.com/}
+	
+	\bibitem{punchtime} Punchtime:  
+	
+	\url{http://www.punchti.me/}
+	
+	\bibitem{pil} PIL:  
+	
+	\url{http://www.pythonware.com/products/pil/}
+	
+	\bibitem{wxwidgets} wxWidgets:  
+	
+	\url{https://www.wxwidgets.org/}
+	
+	\bibitem{python} Python:  
+	
+	\url{https://www.python.org/}
+	
+	\bibitem{autocomplete} wxautocompletectrl: 
+	 
+	\url{http://bitbucket.org/raz/wxautocompletectrl}
+	
+	\bibitem{java} Java:  
+	
+	\url{https://www.java.com/}
+	
+	\bibitem{qt} qt:  
+	
+	\url{http://www.qt.io/}
+	
+	\bibitem{c++} C++: 
+	 
+	\url{https://isocpp.org/}
+
+	\bibitem{scanner} \tfcode{Scanner}:
+
+	\url{https://code.activestate.com/recipes/457664-hidden-scanner-functionality-in-re-module/}
+
+	\bibitem{wxGridSizer} \tfcode{wx.GridSizer}:
+
+	\url{http://wxpython.org/docs/api/wx.GridSizer-class.html}
+
+	\bibitem{wxWrapSizer} \tfcode{wx.WrapSizer}:
+
+	\url{http://wxpython.org/Phoenix/docs/html/WrapSizer.html}
+
+	\bibitem{wxScrolledWindow} \tfcode{wx.ScrolledWindow}:
+
+	\url{http://www.wxpython.org/docs/api/wx.ScrolledWindow-class.html}o
+	
+	\bibitem{wxBoxSizer} \tfcode{wx.BoxSizer}:
+
+	\url{http://wxpython.org/docs/api/wx.BoxSizer-class.html}o
+
+	\bibitem{wxImage} \tfcode{wx.Image}:
+
+	\url{http://wxpython.org/docs/api/wx.Image-class.html}
+
+	\bibitem{wxBitmap} \tfcode{wx.Bitmap}:
+
+	\url{http://wxpython.org/docs/api/wx.Bitmap-class.html}
+	
+	\bibitem{wxcombobox} \tfcode{wx.ComboBox}:
+	
+	\url{http://www.wxpython.org/docs/api/wx.ComboBox-class.html}
+	
+	\bibitem{wxhtmllistbox} \tfcode{wx.HtmlListBox}:
+	
+	\url{http://www.wxpython.org/docs/api/wx.HtmlListBox-class.html}
+
+	\bibitem{elementaryicons} Elementary~icons:
+
+	\url{https://github.com/shimmerproject/elementary-xfce}
+
+	\bibitem{GPLv2} GNU General Public License version 2:
+	
+	\url{https://gnu.org/licenses/gpl-2.0.html}
+	
+	
+	The full text is also available on the CD under \tfpath{Licenses/GPLv2.txt}
+	
+	\bibitem{wxPythonDoc} wxPython online documentation:
+	
+	\url{http://wxpython.org/docs/api/wx-module.html}
+	
+	\bibitem{EXIF} \tfcode{EXIF}:
+	
+	\url{https://en.wikipedia.org/wiki/Exchangeable_image_file_format}
+	
+	\bibitem{IPTC} \tfcode{IPTC}:
+	
+	\url{https://en.wikipedia.org/wiki/IPTC_Information_Interchange_Model}
+	
+	\bibitem{XMP} \tfcode{XMP}:
+	
+	\url{https://en.wikipedia.org/wiki/Extensible_Metadata_Platform}
+	
+	\bibitem{PlanningPoker} Planning Poker:
+	
+	\url{https://en.wikipedia.org/wiki/Planning_poker}
+	
+	\bibitem{wxFrame} \tfcode{wx.Frame}:
+	
+	\url{http://wxpython.org/docs/api/wx.Frame-class.html}
+	
+	\bibitem{wxAccTable} \tfcode{wx.AcceleratorTable}:
+	
+	\url{http://wxpython.org/docs/api/wx.AcceleratorTable-class.html}
+	
+	\bibitem{wxCheckListBox} \tfcode{wx.CheckListBox}:
+	
+	\url{http://wxpython.org/docs/api/wx.CheckListBox-class.html}
+	
+	\bibitem{wxScrolledWindow} \tfcode{wx.ScrolledWindow}:
+	
+	\url{http://wxpython.org/docs/api/wx.ScrolledWindow-class.html}
+	
+	\bibitem{wxStaticBitmap} \tfcode{wx.StaticBitmap}:
+	
+	\url{http://wxpython.org/docs/api/wx.StaticBitmap-class.html}
+	
+	\bibitem{wxSizer} \tfcode{wx.Sizer}:
+	
+	\url{http://www.wxpython.org/docs/api/wx.Sizer-class.html}
+	
+	\bibitem{wxDC} \tfcode{wx.DC}:
+	
+	\url{http://wxpython.org/docs/api/wx.DC-class.html}
+	
+	\bibitem{wxBitmap} \tfcode{wx.Bitmap}:
+	
+	\url{http://wxpython.org/docs/api/wx.Bitmap-class.html}
+	
+	\bibitem{wxDialogue} \tfcode{wx.Dialogue}:
+	
+	\url{http://www.wxpython.org/docs/api/wx.Dialog-class.html}
+	
+	\bibitem{GPLv3} GNU General Public License Version 3:
+	
+	\url{https://www.gnu.org/licenses/gpl-3.0.html}
+	
+	
+	The full text is also available on the CD under \tfpath{Licenses/GPLv3.txt}
+	
+	\bibitem{PythonDict} Data structures in Python:
+	
+	\url{https://docs.python.org/2/tutorial/datastructures.html}
+	
+	\bibitem{osacompile} \tfcode{osacompile} man page:
+	
+	\url{https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/osacompile.1.html}
+	
+	\bibitem{AppleScript} AppleScript: 
+	
+	\url{https://developer.apple.com/library/mac/documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html}
+	
+	\bibitem{EnvironmentVariables} Explanation of environment variables:  
+	
+	\url{https://en.wikibooks.org/wiki/Guide_to_Unix/Environment_Variables}
+	
+	\bibitem{slides} Slides.com:
+	
+	\url{https://slides.com/}
+	
+	\bibitem{sqlite} SQLite:
+	
+	\url{https://www.sqlite.org/}
+	
+\end{thebibliography}
 
 
 \end{document}

@@ -8,18 +8,19 @@ All actions performed in the background, for example creating links, database ma
 \section{The final product}
 After a lot of hard work we managed to finish the first version of OctoTagger. As mentioned above we made it our business to make it as intuitive as possible. That surely sounds nice but what does it actually mean?
 
-In our case it means that the user has to understand the basic structure of the application quickly. He should be able to easily understand the main mechanics of our software so he can start using it right away. That means any difficulties that the user could experience will hinder his enjoyment and therefore would result in a loss of intuitiveness. The absolute key point on this topic was that the application has to be easy to use for the user, software has to adapt to the users, not the other way around.
+In our case it means that the users have to understand the basic structure of the application quickly. They should be able to easily understand the main mechanics of our software so they can start using it right away. That means any difficulties that the users could experience will hinder their enjoyment and therefore would result in a loss of intuitiveness. The absolute key point on this topic was that the application has to be easy to use for the user, software has to adapt to the users, not the other way around.
 
-To accomplish that we had the idea to make the whole program as native as possible. We wanted to give the user the impression that he is using an application which feels like it is coming directly from the operating system. The user should get the experience that there is not even a third party involved. He should get the feeling that our application is just an extension to his basic file manager, an enhancement which is easy to use and simplifies his file management.
+To accomplish that we had the idea to make the whole program as native as possible. We wanted to give the users the impression that they are using an application which feels like it is coming directly from the operating system. They should get the experience that there is not even a third party involved. The users should get the feeling that our application is just an extension to their basic file manager, an enhancement which is easy to use and simplifies their file management.
 
-Furthermore, we tried to design every single action that the user may take as simple as possible. Basic commands that the user is used to from popular programs and operating systems work exactly the same way in OctoTagger. You want to rename a file? Just press \textit{F2}. Refresh the View? Press \textit{F5}. All these classic commands that many of the users are already using by default are implemented precisely the same way in our application so there won't be any conflicts when using OctoTagger. For those not accustomed to shortcuts, there are also buttons for every action and context menus implemented.
+Furthermore, we tried to design every single action that the user may take as simple as possible. Basic commands that the users know from popular programs and operating systems work exactly the same way in OctoTagger. You want to rename a file? Just press \textit{F2}. Refresh the View? Press \textit{F5}. All these classic commands that many of the users are already using by default are implemented precisely the same way in our application so there won't be any conflicts when using OctoTagger. For those not accustomed to shortcuts, there are also buttons for every action and context menus implemented.
 
 When OctoTagger is run for the very first time this is what can be seen:
 
-\begin{center}
-\includegraphics[width=\linewidth]{pp_04}
-\small{The user interface at startup}
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{pp_04}
+    \caption{The user interface at startup}
+\end{figure}
 
 
 At this moment it still looks pretty blank. That is because there are neither files imported nor tags assigned yet. To do so, the user has to click on the \emph{File}-Tab and then on one of the file import options.
@@ -27,33 +28,36 @@ At this moment it still looks pretty blank. That is because there are neither fi
 The next step is to assign tags to the imported files. This is done by selecting the files that are to be tagged, clicking on the tag-bar in the top left corner, typing in a tag and finally pressing Enter. The files are now tagged, which can be seen in the tag-pane right below the tag-bar.
 This is an example view of how your application may look like after you are done with the tagging process.
 
-\begin{center}
-\includegraphics[width=\linewidth]{pp_03}
-\small{User interface after importing and tagging}
-\end{center}
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\linewidth]{pp_03}
+	\caption{User interface after importing and tagging}
+\end{figure}
 
 
-From this point onwards it is possible to use OctoTagger to its full extent. You can now utilize and enjoy all the different functions that are explained in the forthcoming Implementation chapter. (Chapter 4, Implementation)
+From this point onwards it is possible to use OctoTagger to its full extent. You can now utilize and enjoy all the different functions that are explained in the forthcoming Implementation chapter (see \cref{ch:mod:implementation}).
 
 \subsection{Behind the scenes}
 Now that an impression of the surface has been given, let's take a look at the backend. This is what your folder structure will look like right after downloading and extracting OctoTagger:
 
-\begin{center}
-\includegraphics[width=\linewidth]{pp_06}
-\small{File structure of Octotagger before installing}
-\end{center}
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\linewidth]{pp_06}
+	\caption{File structure of OctoTagger before installing}
+\end{figure}
 
-It really is as simple as it looks. The \emph{db}-folder contains database and SQL files, in the \emph{doc}-folder is our documentation and the user manual, the Python files are in the \emph{src}-folder and the \emph{icons}-folder contains logos and other images that are displayed in the application.
+It really is as simple as it looks. The \emph{db}-folder contains database and SQL files, in the \emph{doc}-folder is our documentation and the user manual, the source files are in the \emph{src}-folder and the \emph{icons}-folder contains logos and other images that are displayed in the application.
 
 \section{Installation}
 Installing OctoTagger is easy.
 
-The first step after downloading the software from our website \url{http://www.octotagger.co/} would be to run the \textit{setup.exe} file on Windows, or the \emph{install} script file on Unix systems. Luckily, this is all that has to be done! Afterwards your directory will look like this:
+The first step after downloading and extracting the software from our website \url{http://www.octotagger.co/} would be to run the \textit{setup.exe} file on Windows, or the \emph{install} script file on Unix systems. Luckily, this is all that has to be done! Afterwards your directory will look like this:
 
-\begin{center}
-\includegraphics[width=\linewidth]{pp_05}
-\small{File structure of OctoTagger after installing}
-\end{center}
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\linewidth]{pp_05}
+	\caption{File structure of OctoTagger after installing}
+\end{figure}
 
 
 The following things have changed:
@@ -65,12 +69,12 @@ The following things have changed:
 	\item You are now able to run OctoTagger!
 \end{itemize}
 
-However, it is worth mentioning that you have to execute the setup file with administrator rights under Windows because of the simultaneously created Windows Symlink service which is also explained more in depth in the execution chapter. This is because, under Windows it is necessary to build a service which handles the link creation, due to the fact that Windows does not allow this feature without special permission. By creating a Windows service you only have to grant these rights once and are fine for as long as you keep it installed. If you want to gain a deeper understanding about this topic please consider looking at the \textit{Pywinlink} module section () in the Implementation chapter. (Chapter 4, Implementation,). %TODO add pywinlink module section
+However, it is worth mentioning that you have to execute the setup file with administrator rights under Windows because of the simultaneously created Windows Symlink service which is also explained more in depth in the execution chapter. This is because, under Windows it is necessary to build a service which handles the link creation, due to the fact that Windows does not allow this feature without special permission. By creating a Windows service you only have to grant these rights once and are fine for as long as you keep it installed. If you want to gain a deeper understanding about this topic please consider looking at the \textit{Pywinlink} module section (see \cref{subsec:mod:pywinlink}).
 
 \section{Goals}
 We are proud to announce that all mandatory goals have been achieved! The software is running smoothly and we are all utterly satisfied with the outcome of a year of developing OctoTagger. Of course there have been some complications, challenges and other things that did not go exactly as planned, but altogether we did not have any major troubles and had a pleasant time engineering the software.
 
-If you wish to receive more information about the goals achieved, including the optional ones, and the targets not met, we recommend the analysis in the \textit{evaluation} chapter. There you will also find information on how we planned the whole project in contrast to how we eventually carried it out.
+If you wish to receive more information about the goals achieved, including the optional ones, we recommend the analysis in the \textit{evaluation} chapter (see \cref{ch:mod:evaluation}). There you will also find information on how we planned the whole project in contrast to how we eventually carried it out.
 
 
 
