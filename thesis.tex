@@ -23,6 +23,8 @@
 \usepackage{amssymb}
 \usepackage{float}
 \usepackage{placeins}
+\usepackage[numbers]{natbib}
+\renewcommand{\bibfont}{\small}
 
 \setminted{autogobble,linenos,tabsize=4}
 
@@ -296,12 +298,12 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 
 \clearpage
 \def\kapitelautor{}
-\appendix
-
-\chapter{Appendix}
 
 \bibliographystyle{plaindin}
 \begin{thebibliography}{999}
+	
+	\item[]\hspace{-\labelwidth}\hspace{-\labelsep}All links in this bibliography were accessed last on March 29, 2016.
+	
 	
 	\bibitem{trello} Trello: 
 	 
@@ -487,5 +489,8 @@ Prof. Mag. Martina Oswald, Nebenbetreuer % TODO: Englischbetreuer?
 	
 \end{thebibliography}
 
+\appendix
+
+\chapter{Appendix}
 
 \end{document}
