@@ -4,15 +4,19 @@
 
 \subsubsection{Abstract}
 
+The  \emph{Taggingview} is started by double-clicking an image or by clicking on ``Tools -> Start tagging mode''. When done so, either the clicked image the first one will be displayed fully in the context panel and the user has the option to look at each image in detail and inspect them one by one.
+
 \subsubsection{Attempts}
 
-Originally the image was displayed using a \emph{StaticBitmap} widgets centered
+At first it was tried to implement this feature without the help of any external modules. After a some developing the first prototype of the \emph{Taggingview} was created and it worked fine. The problem was that it only worked for JPGs and changing it up so it worked for every other file type too was far more difficult than it seemed in the beginning. After discussing and researching a while the decision was made to rewrite the \emph{Taggingview} and to use the external module \emph{PIL} \cite{PIL}. After doing so everything seemed to work fine until another problem came up. It was noticed that images containing transparency were not shown. 
+
+Originally the image was displayed using a \emph{StaticBitmap} widget centered
 using sizers. Here the problem arose with transparent images which would not
 display. This was solved by removing the StaticBitmap and instead scaling the
 image to fit the panel and drawing it directly onto it using a \emph{DC}. The
 next problem was that some images were displayed on a black background instead
 of the gray of the panel, which came from scaling the image to fit the panel.
-The solution was leave the image too small and drawing it in the center. Finally
+The solution was leaving the image too small and drawing it in the center. Finally
 some systems would not display the image at all, which was solved by
 implementing a double buffer: every time the window is resized the buffer is
 resized to fit and the image, with the appropriate background color, is drawn
