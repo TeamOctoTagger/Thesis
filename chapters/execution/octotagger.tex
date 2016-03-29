@@ -1,10 +1,9 @@
 \subsection{\tfcode{octotagger}}
 \def\kapitelautor{Erik Ritschl}
-%todo wrong author?
 
 This is the main module, the file that needs to be executed in order to start OctoTagger. It consists of the class \tfcode{MainWindow}, which extends
-\tfcode{wx.Frame}, which is an application window in wxPython\index{wxPython}.
-The code that starts the main loop is located at the very end of the file. %TODO include link
+\tfcode{wx.Frame} \cite{wxFrame}, which is an application window in \emph{wxPython}\index{wxPython}.
+The code that starts the main loop is located at the very end of the file. 
 With almost 2000 lines of code, this is the largest source file in the whole
 project. The reason for this is that it includes many functions that could not
 be easily outsourced as a module, such as three of the four modes (\emph{overview}, \emph{import} and \emph{folder}). Because of the interactive nature of graphical user interfaces, the majority of the  functions consist of event handlers. Given below is a overview of the
@@ -30,7 +29,7 @@ The mode can be one of four strings: \tfcode{overview} (the default),
 sizers (which determine where each element is located and how it reacts to
 resizing), and the text field. %TODO mention autocompletion
 
-An \emph{accelerator table} is also created. This is a feature
+An \emph{accelerator table} (\tfcode{wx.AcceleratorTable} \cite{wxAccTable}) is also created. This is a feature
 of wxPython\index{wxPython}, with which one can specify an array of key code
 and function pairs, each of which then serves as an \emph{accelerator}, or
 keyboard shortcut.
@@ -46,9 +45,8 @@ ends, and control is passed over to the user.
 
 \subsubsection{Modes and general functions}
 
-%TODO link taglist
 The application's modes are not just defined in a few functions or classes, but are rather a conglomerate of 
-different behaviors in every element. For example, when a tag is selected via checkbox in the \emph{tag list}, the function \tfcode{select_tags} is called, which then does different things depending on the \tfcode{self.mode} variable. If its value is \tfcode{"folder"}, the function exits immediately because it should not have any effect in \emph{folder} mode. But in \emph{overview} and \emph{tagging} mode, the selected items get the corresponding tag either assigned or unassigned, depending on the circumstances. But there are also many functions that work only in their specific mode (these are described in following sections) or completely independently from the active mode.
+different behaviors in every element. For example, when a tag is selected via checkbox in the \emph{tag list} (see \cref{subsec:mod:taglist}), the function \tfcode{select_tags} is called, which then does different things depending on the \tfcode{self.mode} variable. If its value is \tfcode{"folder"}, the function exits immediately because it should not have any effect in \emph{folder} mode. But in \emph{overview} and \emph{tagging} mode, the selected items get the corresponding tag either assigned or unassigned, depending on the circumstances. But there are also many functions that work only in their specific mode (these are described in following sections) or completely independently from the active mode.
 
 Because a lot of \tfcode{If}-Statements are involved, some convenience functions were created. For example, the way selected items are measured in \emph{tagging} mode differs from the other modes, and that is why a function was written that always returns the currently selected items, regardless of active mode.
 
@@ -60,8 +58,8 @@ runtime, a function had to be written for updating its contents.
 
 \subsubsection{Overview mode}
 
-%TODO link item view, tag list, context pane, tagging view
-In \emph{overview mode}, all imported files are displayed in the \emph{item view}. Selecting items calls \tfcode{on_selection_change}, which then in turn updates the \emph{tag list} accordingly, by checking the relevant tags, and enables the corresponding options in the \emph{context pane} (such as \emph{Rename}, \emph{Open}, etc.). 
+%TODO link tag list, context pane, tagging view
+In \emph{overview mode}, all imported files are displayed in the \emph{item view} (\cref{subsec:mod:itemview}). Selecting items calls \tfcode{on_selection_change}, which then in turn updates the \emph{tag list} accordingly, by checking the relevant tags, and enables the corresponding options in the \emph{context pane} (such as \emph{Rename}, \emph{Open}, etc.). 
 
 Writing into the text field on the top left can have two different results. When no files are selected, it automatically evaluates the input as a tag expression and filters the displayed items by it. Otherwise, it only takes effect when there is a file selection and \emph{Enter} is pressed, upon which the input is interpreted as  a new tag name which then assigned to the items. 
 
@@ -69,10 +67,10 @@ The effect of checking a tag in the \emph{tag list} also depends on whether item
 
 The \emph{View} menu has the options to only display tagged, untagged or all files, as well as switching to \emph{folder} mode.
 
-When an item is double clicked, a function gets called that removes the \emph{item view} and replaces it with the \emph{tagging view}. This mode basically behaves the same way as \emph{overview}, with exactly one item always selected.
+When an item is double clicked, a function gets called that removes the \emph{item view} and replaces it with the \emph{tagging view} (\cref{subsec:mod:taggingview}). This mode basically behaves the same way as \emph{overview}, with exactly one item always selected.
 
 \subsubsection{Folder mode}
-When this mode is started by the \tfcode{on_start_folder_mode} function, the \emph{tag list} is completely disabled and the \emph{item view} gets updated, but this time not with file ID's but with the paths of all output folders. In order to tell the \emph{item view} which paths are gallery folders, \tfcode{"|GALLERYFOLDER"} is appended to them. This way, they get listed first and advanced output folders second. Double clicking on a folder icon starts the appropriate editing dialog. They can also be opened in the file manager or removed via the options provided in the context menu and \emph{context pane}.
+When this mode is started by the \tfcode{on_start_folder_mode} function, the \emph{tag list} is completely disabled and the \emph{item view} gets updated, but this time not with file ID's but with the paths of all output folders. In order to tell the \emph{item view} which paths are gallery folders, \tfcode{"|GALLERYFOLDER"} is appended to them. This way, they get listed first and advanced output folders second. Double clicking on a folder icon starts the appropriate editing dialog. They can also be opened in the file manager or removed via the options provided in the context menu and \emph{context panel} (\cref{subsec:mod:contextpanel}).
 
 \subsubsection{Import mode}
 

@@ -1,6 +1,6 @@
 \subsection{\tfcode{taggingview}}
 \def\kapitelautor{Christoph Führer, Clemens Stadlbauer, Erik Ritschl}
-% TODO all of taggingview
+\label{subsec:mod:taggingview}
 
 \subsubsection{Abstract}
 
@@ -8,10 +8,10 @@ The  \emph{tagging view} is started by double-clicking an image or by clicking o
 
 \subsubsection{Attempts}
 
-At first it was tried to implement this feature without the help of any external modules. After some development the first prototype of the \emph{tagging view} was created and it functioned well. The problem was that it only worked for \emph{JPG} files and changing it to work with \emph{PNG} and \emph{GIF} files as well was far more difficult than it seemed in the beginning. After discussing and researching a while the decision was made to rewrite large portions of the \emph{tagging view} and to use the external module \emph{PIL} \cite{PIL}. After resolving some issues with resizing the images correctly in order to fit the available space and everything seemed to work, it was noticed that some images were not shown in Windows.
+At first it was tried to implement this feature without the help of any external modules. After some development the first prototype of the \emph{tagging view} was created and it worked well. The problem was that it only worked for \emph{JPG} files and changing it to work with \emph{PNG} and \emph{GIF} files as well was far more difficult than it seemed in the beginning. After discussing and researching a while the decision was made to rewrite large portions of the \emph{tagging view} and to use the external module \emph{PIL} \cite{pil}. After resolving some issues with resizing the images correctly in order to fit the available space and everything seemed to work, it was noticed that some images were not shown in Windows.
 
-Originally the image was displayed using a \tfcode{wx.StaticBitmap} widget centered
-using sizers. While debugging, it was found out that the issue lied with the transparency value of some \emph{PNG} files. It was solved by removing the StaticBitmap and instead scaling the
+Originally the image was displayed using a \tfcode{wx.StaticBitmap} \cite{wxStaticBitmap} widget centered
+using sizers \cite{wxSizer}. While debugging, it was found out that the issue lied with the transparency value of some \emph{PNG} files. It was solved by removing the \tfcode{wx.StaticBitmap} and instead scaling the
 image to fit the panel and drawing it directly onto it using a drawing control. The
 next problem was that some images were displayed on a black background instead
 of the gray of the panel, which came from scaling the image to fit the panel.
@@ -24,9 +24,8 @@ copied into it.
 
 \subsubsection{Solution} % TODO better title
 
-%TODO source
 \paragraph{Drawing the image} has undergone several forms throughout development,
-but the current version uses a variant of the \emph{wx.DC} class, which allows us to draw directly to an internal \emph{wx.Bitmap}, the widget for displaying bitmaps,
+but the current version uses a variant of the \tfcode{wx.DC} \cite{wxDC} class, which allows us to draw directly to an internal \tfcode{wx.Bitmap} \cite{wxBitmap}, the widget for displaying bitmaps,
 that is painted to the screen on every paint event.
 
 \paragraph{Image preloading} is done to improve the user experience since every
