@@ -10,23 +10,25 @@ background thread (\tfcode{_ThumbnailThread}) to make the interface immediately
 available to the user.
 
 \subsubsection{Attempts}
-The original idea was to have a \tfcode{GridSizer} and an appropriate size for
-each item. The number of items per row would have been calculated based on the
-size of the containing frame. The problem with this attempt is that quite many
-expensive operations and calculations would have to be done on every resize,
-potentially resulting in a degraded user experience along with a cluttered
-codebase. For this reason a simpler and more elegant solution was searched.
+The original idea was to have a \tfcode{wx.GridSizer} \cite{wxGridSizer} and an
+appropriate size for each item. The number of items per row would have been
+calculated based on the size of the containing frame. The problem with this
+attempt is that quite many expensive operations and calculations would have to
+be done on every resize, potentially resulting in a degraded user experience
+along with a cluttered codebase. For this reason a simpler and more elegant
+solution was searched.
 
 Due to a lack of knowledge on the available \tfcode{Sizers} in
 wxPython\index{wxPython} the strategy was to basically try out every one and
 analyse it. There always were some problems or limitations with the used
-\tfcode{Sizers}, until the \tfcode{WrapSizer} was discovered.
+\tfcode{Sizers}, until the \tfcode{wx.WrapSizer} \cite{wxWrapSizer} was
+discovered.
 
 The only problem with this sizer is that it extends to the right by default
 and there seemed to be no way to tell it to extend downwards. After trying
 to limit the available vertical space of the sizer with no success, it was
-placed inside a \tfcode{ScrolledWindow} and after figuring out how to properly
-set the size of this window the solution was found.
+placed inside a \tfcode{wxScrolledWindow} \cite{wxScrolledWindow} and after
+figuring out how to properly set the size of this window the solution was found.
 
 \subsubsection{Solution} % TODO better title
 
@@ -34,24 +36,24 @@ See \tfpath{Source Code/octotagger/src/itemview.py} on the included CD to
 follow along in the code while reading the explanation below.
 
 \begin{sloppypar}
-The \tfcode{ItemView} class extends from \tfcode{ScrolledWindow} and is
+The \tfcode{ItemView} class extends from \tfcode{wx.ScrolledWindow} and is
 initialized to vertical scrolling (\tfcode{style=wx.VSCROLL}). Next
 two sizers are created, where \tfcode{mainsizer}'s only purpose is to add a
 border (\tfcode{wx.EXPAND | wx.LEFT | wx.TOP, border=10}) around
-\tfcode{sizer}, which is initialized as a \tfcode{WrapSizer} with horizontal
+\tfcode{sizer}, which is initialized as a \tfcode{wx.WrapSizer} with horizontal
 stacking (\tfcode{wx.WrapSizer(wx.HORIZONTAL)}). Lastly the scroll-rate is set
 to roughly half of an \tfcode{Item}'s dimensions for an appropriate scrolling
 speed.
 \end{sloppypar}
 
 \begin{sloppypar}
-The item is a simple panel with a vertical \tfcode{BoxSizer} containing an
-image at the top and the name at the bottom. The text is horizontally centered
-(\tfcode{wx.ALIGN_CENTER_HORIZONTAL}) and cut off with an ellipsis if it
-doesn't fit in the provided horizontal space (\tfcode{wx.ST_NO_AUTORESIZE |
-wx.ST_ELLIPSIZE_END} and \tfcode{SetMaxSize((THUMBNAIL_SIZE[0], -1))}). Event
-listeners for mouse click events are set up to delegate them to the
-\tfcode{ItemView}.
+The item is a simple panel with a vertical \tfcode{wx.BoxSizer}
+\cite{wxBoxSizer} containing an image at the top and the name at the bottom. The
+text is horizontally centered (\tfcode{wx.ALIGN_CENTER_HORIZONTAL}) and cut off
+with an ellipsis if it doesn't fit in the provided horizontal space
+(\tfcode{wx.ST_NO_AUTORESIZE | wx.ST_ELLIPSIZE_END} and
+\tfcode{SetMaxSize((THUMBNAIL_SIZE[0], -1))}). Event listeners for mouse click
+events are set up to delegate them to the \tfcode{ItemView}.
 \end{sloppypar}
 
 Upon setting a list of files for \tfcode{ItemView} to display, a number of
@@ -78,5 +80,6 @@ Once the thread is started it proceeds to generate the thumbnail, if needed,
 with thumbnail module (see \cref{sub:mod:thumbnail}). Once it is generated the
 thread then creates an \tfcode{Image} from the thumbnail, resizes it to desired
 size and finally signals the calling window that the thumbnail has loaded. The
-calling window, which is always an \tfcode{Item}, takes the \tfcode{Image},
-coverts it into a \tfcode{Bitmap} and displays it.
+calling window, which is always an \tfcode{Item}, takes the \tfcode{wx.Image}
+\cite{wxImage}, coverts it into a \tfcode{wx.Bitmap} \cite{wxBitmap} and
+displays it.
