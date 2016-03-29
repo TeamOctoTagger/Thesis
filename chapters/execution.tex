@@ -224,12 +224,12 @@ We chose SQL because we learned it in school and were familiar with it. Therefor
 \section{Planning and Prototyping} % PoC
 \def\kapitelautor{Erik Ritschl}
 
-Our work already began in the summer of 2015. Since Python was a new language
+Our work already began in the summer of 2015. Since  \emph{Python} was a new language
 to all of us, and we had little experience with GUI programming in general,
-particularly with wxPython\index{wxPython}, we decided this was the best time
+particularly with \emph{wxPython}\index{wxPython}, we decided this was the best time
 to acquaint ourselves with these topics. So we read and watched many tutorials
 on the Internet, until we felt comfortable about carrying out a project with
-these technologies.
+these technologies. Especially helpful was \emph{wxPython}'s official documentation, which we used extensively throughout development \cite{wxPythonDoc}.
 
 A mini-prototype was also created, as a proof of concept. It had a very
 minimalistic graphical user interface, ran only under Linux and was capable of
@@ -245,9 +245,9 @@ the following:
 Up until this point a feature was planned, a must-requirement, that had to be
 dropped. The software was supposed to be able to save tags not only in the
 central database file, but also in the meta information of the file itself.
-Attempts have been made at implementing this functionality, first with EXIF,
-then IPTC and lastly XMP (all different kinds of meta data, where the first two
-only work with images and the last one with all files). But it quickly became
+Attempts have been made at implementing this functionality, first with \emph{EXIF} \cite{EXIF},
+then \emph{IPTC} \cite{IPTC} and lastly \emph{XMP} \cite{XMP} (all different kinds of meta data, where the first two
+only work with images and the last one with all file types). But it quickly became
 evident during development of the prototype that there is no easy way to modify
 meta data with Python on all the platforms that we support (Windows, OS X and
 Ubuntu).
